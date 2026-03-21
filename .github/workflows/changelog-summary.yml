@@ -53,7 +53,7 @@ jobs:
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_PAT }}
         run: |
           copilot \
-            --model "gpt-4.1" \
+            --model "gpt-5.4-mini" \
             --prompt "/github-changelog summary ${{ steps.output-path.outputs.post_date }} save to ${{ steps.output-path.outputs.output_path }}" \
             --yolo \
             --no-ask-user
