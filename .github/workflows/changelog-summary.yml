@@ -31,7 +31,7 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ -n "$INPUT_POST_DATE" ]; then
             POST_DATE="$INPUT_POST_DATE"
           else
-            POST_DATE="$(TZ=Asia/Tokyo date +%F)"
+            POST_DATE="$(TZ=Asia/Tokyo date -d '1 day ago' +%F)"
           fi
 
           YEAR="${POST_DATE:0:4}"
