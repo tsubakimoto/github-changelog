@@ -6,6 +6,9 @@ on:
         description: 'Date for changelog summary (YYYY-MM-DD)'
         required: true
         type: string
+  schedule:
+    - cron: '0 19 * * *'
+      timezone: 'Asia/Tokyo'
 
 permissions:
   contents: write
@@ -20,15 +23,24 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Build output path
+      - name: Resolve target date and output path
         id: output-path
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_POST_DATE: ${{ github.event.inputs['post-date'] }}
         run: |
-          POST_DATE="${{ inputs.post-date }}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ -n "$INPUT_POST_DATE" ]; then
+            POST_DATE="$INPUT_POST_DATE"
+          else
+            POST_DATE="$(TZ=Asia/Tokyo date +%F)"
+          fi
+
           YEAR="${POST_DATE:0:4}"
           MONTH="${POST_DATE:5:2}"
           OUTPUT_DIR="$YEAR/$MONTH"
           OUTPUT_PATH="$OUTPUT_DIR/$POST_DATE.md"
           mkdir -p "$OUTPUT_DIR"
+          echo "post_date=$POST_DATE" >> "$GITHUB_OUTPUT"
           echo "output_path=$OUTPUT_PATH" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js environment
@@ -43,7 +55,7 @@ jobs:
         run: |
           copilot \
             --model "gpt-4.1" \
-            --prompt "/github-changelog summary ${{ inputs.post-date }} save to ${{ steps.output-path.outputs.output_path }}" \
+            --prompt "/github-changelog summary ${{ steps.output-path.outputs.post_date }} save to ${{ steps.output-path.outputs.output_path }}" \
             --yolo \
             --no-ask-user
           cat "${{ steps.output-path.outputs.output_path }}" >> "$GITHUB_STEP_SUMMARY"
@@ -57,5 +69,5 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "Add GitHub changelog summary for ${{ inputs.post-date }}"
+          git commit -m "Add GitHub changelog summary for ${{ steps.output-path.outputs.post_date }}"
           git push origin HEAD:main
