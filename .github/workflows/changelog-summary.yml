@@ -49,11 +49,14 @@ jobs:
         run: npm install -g @github/copilot
 
       - name: Run Copilot CLI
-        env:
-          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_PAT }}
         run: |
+          export COPILOT_MODEL="gpt-5.4-mini"
+          export COPILOT_PROVIDER_BASE_URL="{{ vars.COPILOT_PROVIDER_BASE_URL }}${COPILOT_MODEL}"
+          export COPILOT_PROVIDER_TYPE="azure"
+          export COPILOT_PROVIDER_API_KEY="{{ secrets.COPILOT_PROVIDER_API_KEY }}"
+          export COPILOT_PROVIDER_WIRE_API="responses"
+          
           copilot \
-            --model "gpt-5.4-mini" \
             --prompt "/github-changelog summary ${{ steps.output-path.outputs.post_date }} save to ${{ steps.output-path.outputs.output_path }}" \
             --yolo \
             --no-ask-user
