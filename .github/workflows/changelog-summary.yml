@@ -51,9 +51,9 @@ jobs:
       - name: Run Copilot CLI
         run: |
           export COPILOT_MODEL="gpt-5.4-mini"
-          export COPILOT_PROVIDER_BASE_URL="{{ vars.COPILOT_PROVIDER_BASE_URL }}${COPILOT_MODEL}"
+          export COPILOT_PROVIDER_BASE_URL="${{ vars.COPILOT_PROVIDER_BASE_URL }}${COPILOT_MODEL}"
           export COPILOT_PROVIDER_TYPE="azure"
-          export COPILOT_PROVIDER_API_KEY="{{ secrets.COPILOT_PROVIDER_API_KEY }}"
+          export COPILOT_PROVIDER_API_KEY="${{ secrets.COPILOT_PROVIDER_API_KEY }}"
           export COPILOT_PROVIDER_WIRE_API="responses"
           
           copilot \
