@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ja" style="color-scheme: dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Changelog ダイジェスト - 2026年3月</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-elevated: #161b22;
+    --bg-card: #1c2129;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #9da7b3;
+    --link: #79c0ff;
+    --accent: #58a6ff;
+    --positive-bg: #113a24;
+    --positive-fg: #7ee2a8;
+    --preview-bg: #142c4a;
+    --preview-fg: #8ec8ff;
+    --warn-bg: #4a2410;
+    --warn-fg: #ffb877;
+    --neutral-bg: #23272e;
+    --neutral-fg: #cdd5df;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    line-height: 1.7;
+  }
+  a { color: var(--link); }
+  a:hover { text-decoration: underline; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #363c46; border-radius: 6px; }
+  header.page-header {
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+  header.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  section.block {
+    margin-bottom: 32px;
+  }
+  h2.block-title {
+    font-size: 1.2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 10px;
+    margin-bottom: 14px;
+  }
+  .legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+  .legend-desc { color: var(--text-muted); }
+  .toc {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px 16px;
+  }
+  .toc li {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+  .toc a { text-decoration: none; font-weight: 600; }
+  .toc .count { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
+  .pickup-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pickup-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .pickup-group {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-left: 4px;
+  }
+  .pickup-link {
+    display: block;
+    font-weight: 700;
+    margin: 6px 0 4px;
+    word-break: break-word;
+  }
+  .pickup-date { color: var(--text-muted); font-size: 0.85rem; }
+  .pickup-note { margin: 6px 0 0; color: var(--text); font-size: 0.92rem; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .controls input[type="text"] {
+    flex: 1 1 220px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+  }
+  .controls button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .controls button:hover { border-color: var(--accent); }
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag-filter button {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+  .tag-filter button.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .product-section { margin-bottom: 18px; }
+  details.product-details {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px 14px 14px;
+  }
+  summary.product-summary {
+    cursor: pointer;
+    padding: 12px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    list-style: none;
+  }
+  summary.product-summary::-webkit-details-marker { display: none; }
+  summary.product-summary::before {
+    content: "▸";
+    margin-right: 8px;
+    color: var(--text-muted);
+    transition: transform 0.15s ease;
+  }
+  details[open] > summary.product-summary::before {
+    transform: rotate(90deg);
+  }
+  .product-summary .count {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.85rem;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .card-title { margin: 0 0 4px; font-size: 1rem; word-break: break-word; }
+  .card-date { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 6px; }
+  .summary { margin: 0 0 4px; }
+  .note { margin: 0; color: var(--warn-fg); font-size: 0.88rem; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .tag-positive { background: var(--positive-bg); color: var(--positive-fg); }
+  .tag-preview { background: var(--preview-bg); color: var(--preview-fg); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn-fg); }
+  .tag-neutral { background: var(--neutral-bg); color: var(--neutral-fg); }
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 24px 20px 40px;
+  }
+  @media (max-width: 600px) {
+    .toc { grid-template-columns: 1fr; }
+    header.page-header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>GitHub Changelog ダイジェスト &mdash; 2026年3月</h1>
+  <div class="stats">
+    <span>総件数: 69 件</span>
+    <span>製品数: 10</span>
+    <span>更新のあった日数: 17 / 31 日</span>
+  </div>
+</header>
+<main>
+
+  <section class="block">
+    <h2 class="block-title">タグの凡例</h2>
+    <ul class="legend">
+      <li><span class="tag tag-positive">GA</span><span class="legend-desc">一般提供開始</span></li>
+<li><span class="tag tag-preview">Public Preview</span><span class="legend-desc">パブリックプレビュー</span></li>
+<li><span class="tag tag-preview">Private Preview</span><span class="legend-desc">プライベートプレビュー / 技術プレビュー / ウェイトリスト</span></li>
+<li><span class="tag tag-preview">Beta</span><span class="legend-desc">ベータ版</span></li>
+<li><span class="tag tag-preview">RC</span><span class="legend-desc">リリース候補</span></li>
+<li><span class="tag tag-warn">Breaking Change</span><span class="legend-desc">破壊的変更（要確認）</span></li>
+<li><span class="tag tag-warn">Deprecated</span><span class="legend-desc">非推奨化</span></li>
+<li><span class="tag tag-warn">Retirement</span><span class="legend-desc">廃止 / 提供終了</span></li>
+<li><span class="tag tag-warn">Security</span><span class="legend-desc">セキュリティに関する変更</span></li>
+<li><span class="tag tag-neutral">Improvement</span><span class="legend-desc">既存機能の改善・機能追加</span></li>
+<li><span class="tag tag-neutral">Fix</span><span class="legend-desc">不具合修正</span></li>
+<li><span class="tag tag-neutral">Announcement</span><span class="legend-desc">告知・予告のみ</span></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2 class="block-title">目次</h2>
+    <ul class="toc">
+      <li><a href="#group-copilot">GitHub Copilot</a> <span class="count">(24)</span></li>
+<li><a href="#group-security">Code security</a> <span class="count">(14)</span></li>
+<li><a href="#group-enterprise">Enterprise 管理</a> <span class="count">(9)</span></li>
+<li><a href="#group-actions">GitHub Actions</a> <span class="count">(7)</span></li>
+<li><a href="#group-issues">Issues &amp; Projects</a> <span class="count">(5)</span></li>
+<li><a href="#group-repos">Repositories &amp; Code</a> <span class="count">(4)</span></li>
+<li><a href="#group-apps">Apps &amp; Marketplace</a> <span class="count">(2)</span></li>
+<li><a href="#group-api">API &amp; Webhooks</a> <span class="count">(1)</span></li>
+<li><a href="#group-codespaces">Codespaces</a> <span class="count">(1)</span></li>
+<li><a href="#group-other">その他</a> <span class="count">(2)</span></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2 class="block-title">重要アップデートのピックアップ</h2>
+    <ul class="pickup-list">
+      
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="pickup-group">GitHub Copilot</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-05-gpt-5-4-is-generally-available-in-github-copilot" target="_blank" rel="noopener">GPT-5.4 is generally available in GitHub Copilot</a>
+          <span class="pickup-date">3/5</span>
+          <p class="pickup-note">GPT-5.4 が Copilot 全体で GA。既定モデルとしての利用が拡大します。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span><span class="pickup-group">GitHub Actions</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-13-self-hosted-runner-minimum-version-enforcement-paused" target="_blank" rel="noopener">Self-hosted runner minimum version enforcement paused</a>
+          <span class="pickup-date">3/13</span>
+          <p class="pickup-note">self-hosted runner の最小バージョン強制が一時停止。今後の再開スケジュールに注意。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-warn">Deprecated</span><span class="pickup-group">Enterprise 管理</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-16-deprecating-the-cost-center-integration-on-the-enterprise-people-page" target="_blank" rel="noopener">Deprecating the cost center integration on the enterprise People page</a>
+          <span class="pickup-date">3/16</span>
+          <p class="pickup-note">People ページの cost center 連携が非推奨化。代替運用への移行が必要。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="pickup-group">Enterprise 管理</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-17-github-enterprise-server-3-20-is-now-generally-available" target="_blank" rel="noopener">GitHub Enterprise Server 3.20 is now generally available</a>
+          <span class="pickup-date">3/17</span>
+          <p class="pickup-note">GHES 3.20 GA。アップグレード計画の確認を。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-warn">Breaking Change</span><span class="pickup-group">Code security</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-17-code-quality-permissions-removed-from-security-manager-role" target="_blank" rel="noopener">Code Quality permissions removed from security manager role</a>
+          <span class="pickup-date">3/17</span>
+          <p class="pickup-note">security manager ロールから Code Quality 権限が削除。既存の権限設計を要見直し。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="pickup-group">Issues &amp; Projects</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-19-hierarchy-view-in-github-projects-is-now-generally-available" target="_blank" rel="noopener">Hierarchy view in GitHub Projects is now generally available</a>
+          <span class="pickup-date">3/19</span>
+          <p class="pickup-note">Projects の hierarchy view が GA。大規模な issue 階層管理に有効。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-warn">Deprecated</span><span class="pickup-group">GitHub Copilot</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-26-gemini-3-pro-deprecated" target="_blank" rel="noopener">Gemini 3 Pro deprecated</a>
+          <span class="pickup-date">3/26</span>
+          <p class="pickup-note">Gemini 3 Pro が非推奨。Gemini 3.1 Pro など対応モデルへの移行が必要。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span><span class="pickup-group">Enterprise 管理</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-26-credential-revocation-api-now-supports-github-oauth-and-github-app-credentials" target="_blank" rel="noopener">Credential revocation API now supports GitHub OAuth and GitHub app credentials</a>
+          <span class="pickup-date">3/26</span>
+          <p class="pickup-note">Credential revocation API が OAuth/GitHub App トークンにも対応。IR フローの強化に活用可。</p>
+        </li>
+
+        <li class="pickup-item">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span><span class="pickup-group">Enterprise 管理</span></div>
+          <a class="pickup-link" href="https://github.blog/changelog/2026-03-31-eu-data-residency-region-expanding-to-include-efta-countries" target="_blank" rel="noopener">EU data residency region expanding to include EFTA countries</a>
+          <span class="pickup-date">3/31</span>
+          <p class="pickup-note">EU data residency が EFTA（ノルウェー・スイス）へ拡大。2026-05-01 適用開始。</p>
+        </li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2 class="block-title">製品別の全更新一覧</h2>
+    <div class="controls">
+      <input type="text" id="searchBox" placeholder="タイトル・説明で検索...">
+      <button id="expandAll">すべて展開</button>
+      <button id="collapseAll">すべて折りたたむ</button>
+    </div>
+    <div class="tag-filter" id="tagFilter"></div>
+    
+    <section class="product-section" id="group-copilot">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">1. GitHub Copilot</span>
+          <span class="count">24 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="gpt-5.4 is generally available in github copilot" data-summary="gpt-5.4 が github copilot 全体で ga。旧モデルより高速で高精度なコーディング支援が利用できます。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-gpt-5-4-is-generally-available-in-github-copilot" target="_blank" rel="noopener">GPT-5.4 is generally available in GitHub Copilot</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">GPT-5.4 が GitHub Copilot 全体で GA。旧モデルより高速で高精度なコーディング支援が利用できます。</p>
+          
+        </article>
+
+        <article class="card" data-title="pick a model for @copilot in pull request comments" data-summary="pr コメントで `@copilot` に依頼する際に、使用する ai モデルを指定できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-pick-a-model-for-copilot-in-pull-request-comments" target="_blank" rel="noopener">Pick a model for @copilot in pull request comments</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">PR コメントで `@copilot` に依頼する際に、使用する AI モデルを指定できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot code review now runs on an agentic architecture" data-summary="copilot code review がエージェント型アーキテクチャに刷新され、より深い文脈理解でレビューできるようになりました。" data-tags="GA Improvement">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-copilot-code-review-now-runs-on-an-agentic-architecture" target="_blank" rel="noopener">Copilot code review now runs on an agentic architecture</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">Copilot code review がエージェント型アーキテクチャに刷新され、より深い文脈理解でレビューできるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="add images to agent sessions" data-summary="copilot coding agent のセッションに画像を添付して、視覚的な文脈を伝えられるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-add-images-to-agent-sessions" target="_blank" rel="noopener">Add images to agent sessions</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">Copilot coding agent のセッションに画像を添付して、視覚的な文脈を伝えられるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="figma mcp server can now generate design layers from vs code" data-summary="figma mcp server を通じて、vs code から figma のデザインレイヤーを生成できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-06-figma-mcp-server-can-now-generate-design-layers-from-vs-code" target="_blank" rel="noopener">Figma MCP server can now generate design layers from VS Code</a></h3>
+          <div class="card-date">3/6</div>
+          <p class="summary">Figma MCP server を通じて、VS Code から Figma のデザインレイヤーを生成できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="github copilot in visual studio code v1.110 – february release" data-summary="vs code の copilot 拡張 v1.110（2月リリース）で各種エージェント機能が改善されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-06-github-copilot-in-visual-studio-code-v1-110-february-release" target="_blank" rel="noopener">GitHub Copilot in Visual Studio Code v1.110 – February release</a></h3>
+          <div class="card-date">3/6</div>
+          <p class="summary">VS Code の Copilot 拡張 v1.110（2月リリース）で各種エージェント機能が改善されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="request copilot code review from github cli" data-summary="github cli から直接 copilot code review をリクエストできるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-11-request-copilot-code-review-from-github-cli" target="_blank" rel="noopener">Request Copilot code review from GitHub CLI</a></h3>
+          <div class="card-date">3/11</div>
+          <p class="summary">GitHub CLI から直接 Copilot code review をリクエストできるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="major agentic capabilities improvements in github copilot for jetbrains ides" data-summary="jetbrains ide 向け copilot でエージェント機能が大幅に強化されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-11-major-agentic-capabilities-improvements-in-github-copilot-for-jetbrains-ides" target="_blank" rel="noopener">Major agentic capabilities improvements in GitHub Copilot for JetBrains IDEs</a></h3>
+          <div class="card-date">3/11</div>
+          <p class="summary">JetBrains IDE 向け Copilot でエージェント機能が大幅に強化されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="explore a repository using copilot on the web" data-summary="github の web 上で copilot を使ってリポジトリを対話的に探索できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-11-explore-a-repository-using-copilot-on-the-web" target="_blank" rel="noopener">Explore a repository using Copilot on the web</a></h3>
+          <div class="card-date">3/11</div>
+          <p class="summary">GitHub の Web 上で Copilot を使ってリポジトリを対話的に探索できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot auto model selection is generally available in jetbrains ides" data-summary="jetbrains ide 向け copilot の自動モデル選択機能が ga になりました。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-12-copilot-auto-model-selection-is-generally-available-in-jetbrains-ides" target="_blank" rel="noopener">Copilot auto model selection is generally available in JetBrains IDEs</a></h3>
+          <div class="card-date">3/12</div>
+          <p class="summary">JetBrains IDE 向け Copilot の自動モデル選択機能が GA になりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="updates to github copilot for students" data-summary="学生向け github copilot の提供内容が更新されました。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-13-updates-to-github-copilot-for-students" target="_blank" rel="noopener">Updates to GitHub Copilot for students</a></h3>
+          <div class="card-date">3/13</div>
+          <p class="summary">学生向け GitHub Copilot の提供内容が更新されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot coding agent works faster with semantic code search" data-summary="copilot coding agent がセマンティックコード検索を利用し、より速く目的のコードを見つけられるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-copilot-coding-agent-works-faster-with-semantic-code-search" target="_blank" rel="noopener">Copilot coding agent works faster with semantic code search</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">Copilot coding agent がセマンティックコード検索を利用し、より速く目的のコードを見つけられるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="gpt-5.4 mini is now generally available for github copilot" data-summary="gpt-5.4 mini が github copilot 向けに ga になりました。軽量・高速なモデルとして利用できます。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-gpt-5-4-mini-is-now-generally-available-for-github-copilot" target="_blank" rel="noopener">GPT-5.4 mini is now generally available for GitHub Copilot</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">GPT-5.4 mini が GitHub Copilot 向けに GA になりました。軽量・高速なモデルとして利用できます。</p>
+          
+        </article>
+
+        <article class="card" data-title="configure copilot coding agent&#x27;s validation tools" data-summary="copilot coding agent が変更を検証する際に使うツールを、リポジトリ側で設定できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-18-configure-copilot-coding-agents-validation-tools" target="_blank" rel="noopener">Configure Copilot coding agent&#x27;s validation tools</a></h3>
+          <div class="card-date">3/18</div>
+          <p class="summary">Copilot coding agent が変更を検証する際に使うツールを、リポジトリ側で設定できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="gpt-5.3-codex long-term support in github copilot" data-summary="gpt-5.3-codex が github copilot で長期サポート対象になりました。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-18-gpt-5-3-codex-long-term-support-in-github-copilot" target="_blank" rel="noopener">GPT-5.3-Codex long-term support in GitHub Copilot</a></h3>
+          <div class="card-date">3/18</div>
+          <p class="summary">GPT-5.3-Codex が GitHub Copilot で長期サポート対象になりました。</p>
+          <p class="note">2026-05-17 と 2027-02-04 に関連する提供フェーズの変更予定があります。</p>
+        </article>
+
+        <article class="card" data-title="more visibility into copilot coding agent sessions" data-summary="copilot coding agent のセッション内容がより詳しく確認できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-more-visibility-into-copilot-coding-agent-sessions" target="_blank" rel="noopener">More visibility into Copilot coding agent sessions</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">Copilot coding agent のセッション内容がより詳しく確認できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot coding agent now starts work 50% faster" data-summary="copilot coding agent がタスク開始までの時間が 50% 短縮されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-copilot-coding-agent-now-starts-work-50-faster" target="_blank" rel="noopener">Copilot coding agent now starts work 50% faster</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">Copilot coding agent がタスク開始までの時間が 50% 短縮されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="trace any copilot coding agent commit to its session logs" data-summary="copilot coding agent が作成したコミットから、対応するセッションログへたどれるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-20-trace-any-copilot-coding-agent-commit-to-its-session-logs" target="_blank" rel="noopener">Trace any Copilot coding agent commit to its session logs</a></h3>
+          <div class="card-date">3/20</div>
+          <p class="summary">Copilot coding agent が作成したコミットから、対応するセッションログへたどれるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="monitor copilot coding agent logs live in raycast" data-summary="raycast から copilot coding agent のログをライブで監視できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-20-monitor-copilot-coding-agent-logs-live-in-raycast" target="_blank" rel="noopener">Monitor Copilot coding agent logs live in Raycast</a></h3>
+          <div class="card-date">3/20</div>
+          <p class="summary">Raycast から Copilot coding agent のログをライブで監視できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="gemini 3.1 pro is now available in jetbrains ides, xcode, and eclipse" data-summary="gemini 3.1 pro が jetbrains ide、xcode、eclipse 向け copilot で利用可能になりました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-23-gemini-3-1-pro-is-now-available-in-jetbrains-ides-xcode-and-eclipse" target="_blank" rel="noopener">Gemini 3.1 Pro is now available in JetBrains IDEs, Xcode, and Eclipse</a></h3>
+          <div class="card-date">3/23</div>
+          <p class="summary">Gemini 3.1 Pro が JetBrains IDE、Xcode、Eclipse 向け Copilot で利用可能になりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="ask @copilot to make changes to any pull request" data-summary="任意の pr に対して `@copilot` へ変更を依頼できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-24-ask-copilot-to-make-changes-to-any-pull-request" target="_blank" rel="noopener">Ask @copilot to make changes to any pull request</a></h3>
+          <div class="card-date">3/24</div>
+          <p class="summary">任意の PR に対して `@copilot` へ変更を依頼できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="manage copilot coding agent repository access via the api" data-summary="copilot coding agent のリポジトリアクセス権限を api 経由で管理できる public preview が開始しました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-24-manage-copilot-coding-agent-repository-access-via-the-api" target="_blank" rel="noopener">Manage Copilot coding agent repository access via the API</a></h3>
+          <div class="card-date">3/24</div>
+          <p class="summary">Copilot coding agent のリポジトリアクセス権限を API 経由で管理できる public preview が開始しました。</p>
+          
+        </article>
+
+        <article class="card" data-title="gemini 3 pro deprecated" data-summary="github copilot の各体験で gemini 3 pro が非推奨になり、代替として gemini 3.1 pro が案内されています。" data-tags="Deprecated">
+          <div class="card-tags"><span class="tag tag-warn">Deprecated</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-gemini-3-pro-deprecated" target="_blank" rel="noopener">Gemini 3 Pro deprecated</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">GitHub Copilot の各体験で Gemini 3 Pro が非推奨になり、代替として Gemini 3.1 Pro が案内されています。</p>
+          <p class="note">⚠️ Gemini 3 Pro に依存するワークフローは Gemini 3.1 Pro など対応モデルへの切り替えが必要です。</p>
+        </article>
+
+        <article class="card" data-title="ask @copilot to resolve merge conflicts on pull requests" data-summary="pr コメントで `@copilot` に依頼すると、merge conflict を解消してもらえるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-ask-copilot-to-resolve-merge-conflicts-on-pull-requests" target="_blank" rel="noopener">Ask @copilot to resolve merge conflicts on pull requests</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">PR コメントで `@copilot` に依頼すると、merge conflict を解消してもらえるようになりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-security">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">2. Code security</span>
+          <span class="count">14 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="secret scanning pattern updates — march 2026" data-summary="secret scanning の検出パターンが 2026年3月分として更新され、新しいシークレット種別に対応しました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-10-secret-scanning-pattern-updates-march-2026" target="_blank" rel="noopener">Secret scanning pattern updates — March 2026</a></h3>
+          <div class="card-date">3/10</div>
+          <p class="summary">secret scanning の検出パターンが 2026年3月分として更新され、新しいシークレット種別に対応しました。</p>
+          
+        </article>
+
+        <article class="card" data-title="codeql 2.24.3 adds java 26 support and other improvements" data-summary="codeql 2.24.3 が java 26 の解析に対応し、その他の改善も加わりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-10-codeql-2-24-3-adds-java-26-support-and-other-improvements" target="_blank" rel="noopener">CodeQL 2.24.3 adds Java 26 support and other improvements</a></h3>
+          <div class="card-date">3/10</div>
+          <p class="summary">CodeQL 2.24.3 が Java 26 の解析に対応し、その他の改善も加わりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="dependabot now supports pre-commit hooks" data-summary="dependabot が pre-commit hooks の依存関係も検出・更新できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-10-dependabot-now-supports-pre-commit-hooks" target="_blank" rel="noopener">Dependabot now supports pre-commit hooks</a></h3>
+          <div class="card-date">3/10</div>
+          <p class="summary">Dependabot が pre-commit hooks の依存関係も検出・更新できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="dependabot now detects malware in npm dependencies" data-summary="dependabot が npm 依存関係に含まれるマルウェアを検出できるようになりました。" data-tags="Security">
+          <div class="card-tags"><span class="tag tag-warn">Security</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-dependabot-now-detects-malware-in-npm-dependencies" target="_blank" rel="noopener">Dependabot now detects malware in npm dependencies</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">Dependabot が npm 依存関係に含まれるマルウェアを検出できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="secret scanning in ai coding agents via the github mcp server" data-summary="github mcp server 経由で ai coding agent が生成するコードにも secret scanning が適用されるようになりました。" data-tags="Security">
+          <div class="card-tags"><span class="tag tag-warn">Security</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-secret-scanning-in-ai-coding-agents-via-the-github-mcp-server" target="_blank" rel="noopener">Secret scanning in AI coding agents via the GitHub MCP Server</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">GitHub MCP Server 経由で AI coding agent が生成するコードにも secret scanning が適用されるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="push protection exemptions for roles, teams, and apps" data-summary="push protection の適用除外を、ロール・チーム・アプリ単位で設定できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-push-protection-exemptions-for-roles-teams-and-apps" target="_blank" rel="noopener">Push protection exemptions for roles, teams, and apps</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">push protection の適用除外を、ロール・チーム・アプリ単位で設定できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="github advanced security setup made simple" data-summary="github advanced security のセットアップ手順が簡素化されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-github-advanced-security-setup-made-simple" target="_blank" rel="noopener">GitHub Advanced Security setup made simple</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">GitHub Advanced Security のセットアップ手順が簡素化されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="code quality permissions removed from security manager role" data-summary="security manager ロールから code quality に関する権限が削除されました。" data-tags="Breaking Change">
+          <div class="card-tags"><span class="tag tag-warn">Breaking Change</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-code-quality-permissions-removed-from-security-manager-role" target="_blank" rel="noopener">Code Quality permissions removed from security manager role</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">security manager ロールから Code Quality に関する権限が削除されました。</p>
+          <p class="note">⚠️ security manager ロールに依存した Code Quality 運用は権限の見直しが必要です。</p>
+        </article>
+
+        <article class="card" data-title="github code quality: batch apply quality suggestions on pull requests" data-summary="github code quality の提案を pr 上でまとめて一括適用できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-github-code-quality-batch-apply-quality-suggestions-on-pull-requests" target="_blank" rel="noopener">GitHub Code Quality: Batch apply quality suggestions on pull requests</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">GitHub Code Quality の提案を PR 上でまとめて一括適用できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="push protection exemptions from repository settings" data-summary="リポジトリ設定から push protection の適用除外を直接設定できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-23-push-protection-exemptions-from-repository-settings" target="_blank" rel="noopener">Push protection exemptions from repository settings</a></h3>
+          <div class="card-date">3/23</div>
+          <p class="summary">リポジトリ設定から push protection の適用除外を直接設定できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="faster incremental analysis with codeql in pull requests" data-summary="pr 上の codeql 差分解析（incremental analysis）が高速化されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-24-faster-incremental-analysis-with-codeql-in-pull-requests" target="_blank" rel="noopener">Faster incremental analysis with CodeQL in pull requests</a></h3>
+          <div class="card-date">3/24</div>
+          <p class="summary">PR 上の CodeQL 差分解析（incremental analysis）が高速化されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="github secret scanning — coverage update" data-summary="secret scanning に 9 種類の新しい検出器が追加され、一部プロバイダーは push protection の既定対象になりました。" data-tags="Improvement Security">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span><span class="tag tag-warn">Security</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-31-github-secret-scanning-nine-new-types-and-more" target="_blank" rel="noopener">GitHub secret scanning — coverage update</a></h3>
+          <div class="card-date">3/31</div>
+          <p class="summary">secret scanning に 9 種類の新しい検出器が追加され、一部プロバイダーは push protection の既定対象になりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="codeql 2.25.0 adds swift 6.2.4 support" data-summary="codeql 2.25.0 が公開され、swift 6.2.4 解析対応や java/kotlin cfg の全面刷新などが行われました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-31-codeql-2-25-0-adds-swift-6-2-4-support" target="_blank" rel="noopener">CodeQL 2.25.0 adds Swift 6.2.4 support</a></h3>
+          <div class="card-date">3/31</div>
+          <p class="summary">CodeQL 2.25.0 が公開され、Swift 6.2.4 解析対応や Java/Kotlin CFG の全面刷新などが行われました。</p>
+          
+        </article>
+
+        <article class="card" data-title="codeql pull requests insights on security overview now cover all protected branches" data-summary="security overview の codeql pr insights が、デフォルトブランチだけでなく全ての protected branches を対象にするようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-31-codeql-pull-requests-insights-on-security-overview-now-cover-all-protected-branches" target="_blank" rel="noopener">CodeQL pull requests insights on security overview now cover all protected branches</a></h3>
+          <div class="card-date">3/31</div>
+          <p class="summary">Security overview の CodeQL PR insights が、デフォルトブランチだけでなく全ての protected branches を対象にするようになりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-enterprise">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">3. Enterprise 管理</span>
+          <span class="count">9 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="discover and manage agent activity with new session filters" data-summary="組織全体の copilot coding agent セッションを、状態やリポジトリで絞り込んで確認できるフィルターが追加されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-discover-and-manage-agent-activity-with-new-session-filters" target="_blank" rel="noopener">Discover and manage agent activity with new session filters</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">組織全体の Copilot coding agent セッションを、状態やリポジトリで絞り込んで確認できるフィルターが追加されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot usage metrics now includes user-level github copilot cli activity" data-summary="copilot usage metrics にユーザー単位の copilot cli 利用状況が追加され、詳細な活用状況を把握できます。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-copilot-usage-metrics-now-includes-user-level-github-copilot-cli-activity" target="_blank" rel="noopener">Copilot usage metrics now includes user-level GitHub Copilot CLI activity</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">Copilot usage metrics にユーザー単位の Copilot CLI 利用状況が追加され、詳細な活用状況を把握できます。</p>
+          
+        </article>
+
+        <article class="card" data-title="deprecating the cost center integration on the enterprise people page" data-summary="enterprise の people ページにある cost center 連携機能が非推奨になりました。" data-tags="Deprecated">
+          <div class="card-tags"><span class="tag tag-warn">Deprecated</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-16-deprecating-the-cost-center-integration-on-the-enterprise-people-page" target="_blank" rel="noopener">Deprecating the cost center integration on the enterprise People page</a></h3>
+          <div class="card-date">3/16</div>
+          <p class="summary">Enterprise の People ページにある cost center 連携機能が非推奨になりました。</p>
+          <p class="note">⚠️ 既存の cost center 連携を利用している場合は代替手段への移行が必要です。</p>
+        </article>
+
+        <article class="card" data-title="github enterprise server 3.20 is now generally available" data-summary="github enterprise server 3.20 が ga になりました。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-github-enterprise-server-3-20-is-now-generally-available" target="_blank" rel="noopener">GitHub Enterprise Server 3.20 is now generally available</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">GitHub Enterprise Server 3.20 が GA になりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot usage metrics now includes organization-level github copilot cli activity" data-summary="copilot usage metrics に組織単位の copilot cli 利用状況が追加されました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-17-copilot-usage-metrics-now-includes-organization-level-github-copilot-cli-activity" target="_blank" rel="noopener">Copilot usage metrics now includes organization-level GitHub Copilot CLI activity</a></h3>
+          <div class="card-date">3/17</div>
+          <p class="summary">Copilot usage metrics に組織単位の Copilot CLI 利用状況が追加されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot usage metrics now resolve auto model selection to actual models" data-summary="copilot usage metrics で、自動モデル選択が実際にどのモデルへ解決されたかを確認できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-20-copilot-usage-metrics-now-resolve-auto-model-selection-to-actual-models" target="_blank" rel="noopener">Copilot usage metrics now resolve auto model selection to actual models</a></h3>
+          <div class="card-date">3/20</div>
+          <p class="summary">Copilot usage metrics で、自動モデル選択が実際にどのモデルへ解決されたかを確認できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="copilot usage metrics now identify active copilot coding agent users" data-summary="copilot usage metrics で、copilot coding agent をアクティブに利用しているユーザーを特定できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-25-copilot-usage-metrics-now-identify-active-copilot-coding-agent-users" target="_blank" rel="noopener">Copilot usage metrics now identify active Copilot coding agent users</a></h3>
+          <div class="card-date">3/25</div>
+          <p class="summary">Copilot usage metrics で、Copilot coding agent をアクティブに利用しているユーザーを特定できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="credential revocation api now supports github oauth and github app credentials" data-summary="credential revocation api が拡張され、github oauth トークンや github app の資格情報も一括失効できるようになりました。" data-tags="Security Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-credential-revocation-api-now-supports-github-oauth-and-github-app-credentials" target="_blank" rel="noopener">Credential revocation API now supports GitHub OAuth and GitHub app credentials</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">Credential revocation API が拡張され、GitHub OAuth トークンや GitHub App の資格情報も一括失効できるようになりました。</p>
+          <p class="note">unauthenticated API のため 60 req/hour・1,000 tokens/request の制限に注意。</p>
+        </article>
+
+        <article class="card" data-title="eu data residency region expanding to include efta countries" data-summary="ghe.com の eu data residency region が、ノルウェー・スイスなど efta 諸国にも拡大されます。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-31-eu-data-residency-region-expanding-to-include-efta-countries" target="_blank" rel="noopener">EU data residency region expanding to include EFTA countries</a></h3>
+          <div class="card-date">3/31</div>
+          <p class="summary">ghe.com の EU data residency region が、ノルウェー・スイスなど EFTA 諸国にも拡大されます。</p>
+          <p class="note">2026-05-01 から拡大適用。EU 加盟国限定が必要な組織は事前に Support へ連絡が必要です。</p>
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-actions">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">4. GitHub Actions</span>
+          <span class="count">7 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="actions oidc tokens now support repository custom properties" data-summary="github actions の oidc トークンに、リポジトリのカスタムプロパティを含められるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-12-actions-oidc-tokens-now-support-repository-custom-properties" target="_blank" rel="noopener">Actions OIDC tokens now support repository custom properties</a></h3>
+          <div class="card-date">3/12</div>
+          <p class="summary">GitHub Actions の OIDC トークンに、リポジトリのカスタムプロパティを含められるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="optionally skip approval for copilot coding agent actions workflows" data-summary="copilot coding agent が作成する actions ワークフローの実行承認を任意でスキップできるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-13-optionally-skip-approval-for-copilot-coding-agent-actions-workflows" target="_blank" rel="noopener">Optionally skip approval for Copilot coding agent Actions workflows</a></h3>
+          <div class="card-date">3/13</div>
+          <p class="summary">Copilot coding agent が作成する Actions ワークフローの実行承認を任意でスキップできるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="self-hosted runner minimum version enforcement paused" data-summary="self-hosted runner の最小バージョン強制適用が一時停止されました。今後のスケジュールは改めて案内されます。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-13-self-hosted-runner-minimum-version-enforcement-paused" target="_blank" rel="noopener">Self-hosted runner minimum version enforcement paused</a></h3>
+          <div class="card-date">3/13</div>
+          <p class="summary">self-hosted runner の最小バージョン強制適用が一時停止されました。今後のスケジュールは改めて案内されます。</p>
+          
+        </article>
+
+        <article class="card" data-title="github actions: late march 2026 updates" data-summary="github actions の 2026年3月後半分アップデートがまとめて公開されました（`deployment:false` やタイムゾーン対応など）。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-github-actions-late-march-2026-updates" target="_blank" rel="noopener">GitHub Actions: Late March 2026 updates</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">GitHub Actions の 2026年3月後半分アップデートがまとめて公開されました（`deployment:false` やタイムゾーン対応など）。</p>
+          
+        </article>
+
+        <article class="card" data-title="actions runner controller release 0.14.0" data-summary="actions runner controller (arc) 0.14.0 がリリースされました。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-actions-runner-controller-release-0-14-0" target="_blank" rel="noopener">Actions Runner Controller release 0.14.0</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">Actions Runner Controller (ARC) 0.14.0 がリリースされました。</p>
+          
+        </article>
+
+        <article class="card" data-title="view agentic workflow configs in the actions run summary" data-summary="agentic workflow の設定内容を actions の run summary から直接確認できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-view-agentic-workflow-configs-in-the-actions-run-summary" target="_blank" rel="noopener">View Agentic Workflow configs in the Actions run summary</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">Agentic Workflow の設定内容を Actions の run summary から直接確認できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="custom images for github-hosted runners are now generally available" data-summary="github-hosted runners 向けの custom images が ga になりました。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-custom-images-for-github-hosted-runners-are-now-generally-available" target="_blank" rel="noopener">Custom images for GitHub-hosted runners are now generally available</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">GitHub-hosted runners 向けの custom images が GA になりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-issues">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">5. Issues &amp; Projects</span>
+          <span class="count">5 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="hierarchy view improvements and file uploads in issue forms" data-summary="projects の hierarchy view が改善され、issue forms からファイルを直接アップロードできるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-hierarchy-view-improvements-and-file-uploads-in-issue-forms" target="_blank" rel="noopener">Hierarchy view improvements and file uploads in issue forms</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">Projects の hierarchy view が改善され、issue forms からファイルを直接アップロードできるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="issue fields: structured issue metadata is in public preview" data-summary="issue に構造化メタデータ（issue fields）を付与できる public preview 機能が公開されました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-12-issue-fields-structured-issue-metadata-is-in-public-preview" target="_blank" rel="noopener">Issue fields: Structured issue metadata is in public preview</a></h3>
+          <div class="card-date">3/12</div>
+          <p class="summary">Issue に構造化メタデータ（Issue fields）を付与できる public preview 機能が公開されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="hierarchy view in github projects is now generally available" data-summary="github projects の hierarchy view が ga になりました。" data-tags="GA">
+          <div class="card-tags"><span class="tag tag-positive">GA</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-hierarchy-view-in-github-projects-is-now-generally-available" target="_blank" rel="noopener">Hierarchy view in GitHub Projects is now generally available</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">GitHub Projects の hierarchy view が GA になりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="agent activity in github issues and projects" data-summary="issues と projects で、coding agent のセッション状況（queued/working/waiting for review/completed）を直接確認できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-agent-activity-in-github-issues-and-projects" target="_blank" rel="noopener">Agent activity in GitHub Issues and Projects</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">Issues と Projects で、coding agent のセッション状況（queued/working/waiting for review/completed）を直接確認できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="create issues from slack with copilot" data-summary="slack から `@github` に自然言語で依頼するだけで、構造化された github issue（sub-issue 含む）を作成できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-30-create-issues-from-slack-with-copilot" target="_blank" rel="noopener">Create issues from Slack with Copilot</a></h3>
+          <div class="card-date">3/30</div>
+          <p class="summary">Slack から `@GitHub` に自然言語で依頼するだけで、構造化された GitHub Issue（sub-issue 含む）を作成できるようになりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-repos">
+      <details class="product-details">
+        <summary class="product-summary">
+          <span class="product-name">6. Repositories &amp; Code</span>
+          <span class="count">4 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="quick access to merge status in pull requests is in public preview" data-summary="pr のマージ可否ステータスにワンクリックでアクセスできる public preview 機能が追加されました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-quick-access-to-merge-status-in-pull-requests-is-in-public-preview" target="_blank" rel="noopener">Quick access to merge status in pull requests is in public preview</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">PR のマージ可否ステータスにワンクリックでアクセスできる public preview 機能が追加されました。</p>
+          
+        </article>
+
+        <article class="card" data-title="view code and comments side-by-side in pull request files changed page" data-summary="pr の files changed ページで、コードとコメントを左右に並べて表示できるようになりました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-view-code-and-comments-side-by-side-in-pull-request-files-changed-page" target="_blank" rel="noopener">View code and comments side-by-side in pull request Files changed page</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">PR の Files changed ページで、コードとコメントを左右に並べて表示できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="disable comments on individual commits" data-summary="個別コミットへのコメントを無効化できるようになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-25-disable-comments-on-individual-commits" target="_blank" rel="noopener">Disable comments on individual commits</a></h3>
+          <div class="card-date">3/25</div>
+          <p class="summary">個別コミットへのコメントを無効化できるようになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="new pull requests dashboard is in public preview" data-summary="`github.com/pulls` に inbox と saved views を備えた新しい pr ダッシュボードが public preview で追加されました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-26-new-pull-requests-dashboard-is-in-public-preview" target="_blank" rel="noopener">New pull requests dashboard is in public preview</a></h3>
+          <div class="card-date">3/26</div>
+          <p class="summary">`github.com/pulls` に Inbox と Saved views を備えた新しい PR ダッシュボードが public preview で追加されました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-apps">
+      <details class="product-details" open>
+        <summary class="product-summary">
+          <span class="product-name">7. Apps &amp; Marketplace</span>
+          <span class="count">2 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="github copilot coding agent for jira is now in public preview" data-summary="jira の issue から copilot coding agent に直接作業を依頼できる public preview が始まりました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-05-github-copilot-coding-agent-for-jira-is-now-in-public-preview" target="_blank" rel="noopener">GitHub Copilot coding agent for Jira is now in public preview</a></h3>
+          <div class="card-date">3/5</div>
+          <p class="summary">Jira の issue から Copilot coding agent に直接作業を依頼できる public preview が始まりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="github copilot for jira — public preview enhancements" data-summary="copilot for jira の public preview に複数の機能強化が加わりました。" data-tags="Public Preview Improvement">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-25-github-copilot-for-jira-public-preview-enhancements" target="_blank" rel="noopener">GitHub Copilot for Jira — Public preview enhancements</a></h3>
+          <div class="card-date">3/25</div>
+          <p class="summary">Copilot for Jira の public preview に複数の機能強化が加わりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-api">
+      <details class="product-details" open>
+        <summary class="product-summary">
+          <span class="product-name">8. API &amp; Webhooks</span>
+          <span class="count">1 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="rest api version 2026-03-10 is now available" data-summary="rest api の新バージョン 2026-03-10 が公開されました。既存の呼び出しへの影響を確認してください。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-12-rest-api-version-2026-03-10-is-now-available" target="_blank" rel="noopener">REST API version 2026-03-10 is now available</a></h3>
+          <div class="card-date">3/12</div>
+          <p class="summary">REST API の新バージョン 2026-03-10 が公開されました。既存の呼び出しへの影響を確認してください。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-codespaces">
+      <details class="product-details" open>
+        <summary class="product-summary">
+          <span class="product-name">9. Codespaces</span>
+          <span class="count">1 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="codespaces with data residency now available in japan" data-summary="日本国内でのデータレジデンシーに対応した codespaces が利用可能になりました。" data-tags="Public Preview">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-19-codespaces-with-data-residency-now-available-in-japan" target="_blank" rel="noopener">Codespaces with data residency now available in Japan</a></h3>
+          <div class="card-date">3/19</div>
+          <p class="summary">日本国内でのデータレジデンシーに対応した Codespaces が利用可能になりました。</p>
+          
+        </article>
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-other">
+      <details class="product-details" open>
+        <summary class="product-summary">
+          <span class="product-name">10. その他</span>
+          <span class="count">2 件</span>
+        </summary>
+        <div class="cards">
+          
+        <article class="card" data-title="a smoother navigation experience in github mobile for android" data-summary="github mobile for android のナビゲーションが改善され、操作がよりスムーズになりました。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-20-a-smoother-navigation-experience-in-github-mobile-for-android" target="_blank" rel="noopener">A smoother navigation experience in GitHub Mobile for Android</a></h3>
+          <div class="card-date">3/20</div>
+          <p class="summary">GitHub Mobile for Android のナビゲーションが改善され、操作がよりスムーズになりました。</p>
+          
+        </article>
+
+        <article class="card" data-title="updates to our privacy statement and terms of service: how we use your data" data-summary="github のプライバシーステートメントと利用規約が、データ利用方法に関して更新されます。" data-tags="Announcement">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-03-25-updates-to-our-privacy-statement-and-terms-of-service-how-we-use-your-data" target="_blank" rel="noopener">Updates to our Privacy Statement and Terms of Service: How we use your data</a></h3>
+          <div class="card-date">3/25</div>
+          <p class="summary">GitHub のプライバシーステートメントと利用規約が、データ利用方法に関して更新されます。</p>
+          <p class="note">2026-04-24 から新しい規約が適用されます。</p>
+        </article>
+        </div>
+      </details>
+    </section>
+  </section>
+
+</main>
+<footer>
+  データソース: <a href="https://github.blog/changelog/" target="_blank" rel="noopener">GitHub Changelog</a> (2026/03 分の日次アーカイブより生成)
+</footer>
+<script>
+  document.getElementById('expandAll').addEventListener('click', function() {
+    document.querySelectorAll('details.product-details').forEach(function(d) { d.open = true; });
+  });
+  document.getElementById('collapseAll').addEventListener('click', function() {
+    document.querySelectorAll('details.product-details').forEach(function(d) { d.open = false; });
+  });
+
+  var allTags = ["Announcement", "Beta", "Breaking Change", "Deprecated", "Fix", "GA", "Improvement", "Private Preview", "Public Preview", "RC", "Retirement", "Security"];
+  var tagFilterEl = document.getElementById('tagFilter');
+  var activeTags = new Set();
+  allTags.forEach(function(t) {
+    var btn = document.createElement('button');
+    btn.textContent = t;
+    btn.addEventListener('click', function() {
+      if (activeTags.has(t)) {
+        activeTags.delete(t);
+        btn.classList.remove('active');
+      } else {
+        activeTags.add(t);
+        btn.classList.add('active');
+      }
+      applyFilters();
+    });
+    tagFilterEl.appendChild(btn);
+  });
+
+  var searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('input', applyFilters);
+
+  function applyFilters() {
+    var q = searchBox.value.trim().toLowerCase();
+    document.querySelectorAll('.card').forEach(function(card) {
+      var title = card.getAttribute('data-title') || '';
+      var summary = card.getAttribute('data-summary') || '';
+      var tags = (card.getAttribute('data-tags') || '').split(' ');
+      var matchesText = !q || title.indexOf(q) !== -1 || summary.indexOf(q) !== -1;
+      var matchesTags = activeTags.size === 0 || Array.from(activeTags).every(function(t) { return tags.indexOf(t) !== -1; });
+      var visible = matchesText && matchesTags;
+      card.style.display = visible ? '' : 'none';
+      if (visible) {
+        var details = card.closest('details.product-details');
+        if (details && (q || activeTags.size > 0)) { details.open = true; }
+      }
+    });
+    document.querySelectorAll('.product-section').forEach(function(section) {
+      var anyVisible = Array.from(section.querySelectorAll('.card')).some(function(c) { return c.style.display !== 'none'; });
+      section.style.display = anyVisible ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
