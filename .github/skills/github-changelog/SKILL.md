@@ -8,17 +8,22 @@ description: >
   asks about GitHub feature announcements, product updates, or wants to understand what changed in
   GitHub on a particular day. This skill fetches all posts from the GitHub Changelog RSS feed for a
   specified date and organizes them into summaries, action plans, and references (URLs).
+license: Proprietary. LICENSE has complete terms.
 ---
 
 # GitHub Changelog Skill
 
 指定された日付の GitHub Changelog 投稿をすべて取得し、各エントリを **要約・アクションプラン・リファレンス** に整理します。
 
+## Skill directory
+
+`~/.copilot/skills/github-changelog/`
+
 ## Quick Reference
 
 | タスク | コマンド |
 |--------|---------|
-| 指定日の投稿を取得 | `python scripts/fetch_changelog.py <YYYY-MM-DD>` |
+| 指定日の投稿を取得 | `dotnet run --file scripts\fetch_changelog.cs -- <YYYY-MM-DD>` |
 
 ---
 
@@ -38,7 +43,7 @@ description: >
 ## Running the Script
 
 ```bash
-python scripts/fetch_changelog.py <YYYY-MM-DD>
+dotnet run --file scripts\fetch_changelog.cs -- <YYYY-MM-DD>
 ```
 
 スクリプトは `https://github.blog/changelog/feed/` から RSS フィードを取得し、
@@ -46,7 +51,7 @@ python scripts/fetch_changelog.py <YYYY-MM-DD>
 
 **例:**
 ```bash
-python scripts/fetch_changelog.py 2026-03-06
+dotnet run --file scripts\fetch_changelog.cs -- 2026-03-06
 ```
 
 スクリプト出力例（JSON）:
@@ -65,7 +70,7 @@ python scripts/fetch_changelog.py 2026-03-06
 
 ## Output Format
 
-結果は必ず次のテンプレートで出力する: `assets/template.md`
+結果は必ず次のテンプレートで出力する: `~/.copilot/skills/github-changelog/assets/template.md`
 
 エントリが 0 件の場合は「<date> のエントリは見つかりませんでした」と伝え、前後の日付で再確認することを提案する。
 
