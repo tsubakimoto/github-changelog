@@ -1,5 +1,5 @@
 ---
-name: montly-digest
+name: monthly-digest
 description: Use this skill when the user wants to create a monthly digest HTML page
 ---
 
