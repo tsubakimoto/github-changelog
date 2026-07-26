@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Changelog Digest - 2026年6月</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9e0ea;
+      --accent: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 20px 14px 40px;
+    }
+    h1, h2 { margin: 0 0 8px; line-height: 1.3; }
+    p { margin: 0; }
+    .lead { color: var(--muted); margin-top: 6px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfdff;
+    }
+    .stat .label { font-size: 12px; color: var(--muted); }
+    .stat .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
+    .note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pickup-list {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+    .pickup-list li { margin: 8px 0; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-word;
+    }
+    a:hover { text-decoration: underline; }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    button:hover { border-color: #aebcd4; }
+    .timeline {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    details.day {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+    }
+    details.day > summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+    }
+    details.day[open] > summary { border-bottom-color: var(--line); }
+    details.day > summary::-webkit-details-marker { display: none; }
+    .badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .day-body { padding: 10px 14px 14px; }
+    .entry-list { margin: 0; padding-left: 18px; }
+    .entry-list li { margin: 7px 0; }
+    .empty { color: var(--muted); }
+    @media (max-width: 700px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stat .value { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>GitHub Changelog 月次ダイジェスト（2026年6月）</h1>
+      <p class="lead">2026-06-01 〜 2026-06-30 の更新を日次ファイルから集約。重要アップデートと全更新一覧を1ページで確認できます。</p>
+      <div class="stats">
+        <div class="stat"><div class="label">総エントリ数</div><div class="value" id="stat-entries">-</div></div>
+        <div class="stat"><div class="label">更新あり日数</div><div class="value" id="stat-active">-</div></div>
+        <div class="stat"><div class="label">0件日数</div><div class="value" id="stat-empty">-</div></div>
+        <div class="stat"><div class="label">読み込み済み日次ファイル</div><div class="value" id="stat-loaded">-</div></div>
+      </div>
+      <p class="note" id="source-note"></p>
+    </section>
+
+    <section class="card">
+      <h2>重要アップデート（ピックアップ）</h2>
+      <ul class="pickup-list">
+        <li><a href="https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans" target="_blank" rel="noopener noreferrer">Updates to GitHub Copilot billing and plans</a> - Copilot の課金体系とプラン構成が変わるため、コスト管理と契約内容の見直しが必要です。</li>
+        <li><a href="https://github.blog/changelog/2026-06-02-gpt-4-1-deprecated" target="_blank" rel="noopener noreferrer">GPT-4.1 deprecated</a> - Copilot 全体で GPT-4.1 が廃止され、GPT-5.5 への移行対応が必須になります。</li>
+        <li><a href="https://github.blog/changelog/2026-06-05-gpt-5-2-and-gpt-5-2-codex-deprecated" target="_blank" rel="noopener noreferrer">GPT-5.2 and GPT-5.2-Codex deprecated</a> - 旧 GPT-5.2 系が廃止され、モデル指定を含む既存ワークフローの更新が必要です。</li>
+        <li><a href="https://github.blog/changelog/2026-06-02-copilot-sdk-is-now-generally-available" target="_blank" rel="noopener noreferrer">Copilot SDK is now generally available</a> - Copilot の agentic engine を自社アプリへ組み込める基盤が GA になりました。</li>
+        <li><a href="https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12" target="_blank" rel="noopener noreferrer">Upcoming breaking changes for npm v12</a> - npm v12 の破壊的変更に備え、CI とパッケージ公開フローの検証が必要です。</li>
+        <li><a href="https://github.blog/changelog/2026-06-11-github-agentic-workflows-is-now-in-public-preview" target="_blank" rel="noopener noreferrer">GitHub Agentic Workflows is now in public preview</a> - エージェント処理をワークフローとして定義でき、自動化の設計方針に影響します。</li>
+        <li><a href="https://github.blog/changelog/2026-06-16-github-models-is-no-longer-available-to-new-customers" target="_blank" rel="noopener noreferrer">GitHub Models is no longer available to new customers</a> - 新規利用の停止により、モデル検証基盤の代替検討が必要になります。</li>
+        <li><a href="https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available" target="_blank" rel="noopener noreferrer">GitHub Copilot app generally available</a> - Copilot app が GA となり、エージェント中心の作業導線を本番運用に載せられます。</li>
+        <li><a href="https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout" target="_blank" rel="noopener noreferrer">Safer pull_request_target defaults for GitHub Actions checkout</a> - Actions のセキュリティ既定値が変わるため、既存ワークフローの挙動確認が必要です。</li>
+        <li><a href="https://github.blog/changelog/2026-06-30-cloud-data-retention-policy-for-closed-security-alerts" target="_blank" rel="noopener noreferrer">Upcoming cloud data retention policy for closed security alerts</a> - クローズ済みセキュリティアラートの保持期間が変わり、監査・記録運用に影響します。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>全更新一覧（日付ごと）</h2>
+      <div class="toolbar">
+        <button type="button" id="open-all">すべて展開</button>
+        <button type="button" id="close-all">すべて折りたたむ</button>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+  </main>
+
+  <script>
+    const updates = [
+      {"date":"2026-06-01","status":"ok","entries":[{"title":"Evaluation models in auto for individual plans","url":"https://github.blog/changelog/2026-06-01-evaluation-models-in-auto-for-individual-plans"},{"title":"Updates to GitHub Copilot billing and plans","url":"https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans"}]},
+      {"date":"2026-06-02","status":"ok","entries":[{"title":"GPT-4.1 deprecated","url":"https://github.blog/changelog/2026-06-02-gpt-4-1-deprecated"},{"title":"Expanded technical preview availability for the GitHub Copilot app","url":"https://github.blog/changelog/2026-06-02-expanded-technical-preview-availability-for-the-github-copilot-app"},{"title":"Copilot SDK is now generally available","url":"https://github.blog/changelog/2026-06-02-copilot-sdk-is-now-generally-available"},{"title":"Copilot CLI: Improved UI, rubber duck, prompt scheduling, and voice input","url":"https://github.blog/changelog/2026-06-02-copilot-cli-improved-ui-rubber-duck-prompt-scheduling-and-voice-input"},{"title":"Cloud and local sandboxes for GitHub Copilot now in public preview","url":"https://github.blog/changelog/2026-06-02-cloud-and-local-sandboxes-for-github-copilot-now-in-public-preview"},{"title":"GitHub Copilot code review for Azure Repos is now in technical preview","url":"https://github.blog/changelog/2026-06-02-github-copilot-code-review-for-azure-repos-is-now-in-technical-preview"},{"title":"Shape Copilot code review around your team","url":"https://github.blog/changelog/2026-06-02-shape-copilot-code-review-around-your-team"},{"title":"Extend GitHub with agent apps","url":"https://github.blog/changelog/2026-06-02-extend-github-with-agent-apps"},{"title":"Introducing Copilot CLI and agentic capabilities enhancements in JetBrains IDEs","url":"https://github.blog/changelog/2026-06-02-introducing-copilot-cli-and-agentic-capabilities-enhancements-in-jetbrains-ides"},{"title":"Gemini models in Copilot CLI, cloud agent, and the Copilot app","url":"https://github.blog/changelog/2026-06-02-gemini-models-in-copilot-cli-cloud-agent-and-the-copilot-app"}]},
+      {"date":"2026-06-03","status":"ok","entries":[{"title":"GitHub Copilot in Visual Studio Code, May releases","url":"https://github.blog/changelog/2026-06-03-github-copilot-in-visual-studio-code-may-releases"}]},
+      {"date":"2026-06-04","status":"ok","entries":[{"title":"Fix with Copilot for failing Actions now in Pro, Pro+, and Max","url":"https://github.blog/changelog/2026-06-04-fix-with-copilot-for-failing-actions-now-in-pro-pro-and-max"},{"title":"Agent tasks REST API now available for Copilot Pro, Pro+, and Max","url":"https://github.blog/changelog/2026-06-04-agent-tasks-rest-api-now-available-for-copilot-pro-pro-and-max"},{"title":"Larger context windows and configurable reasoning levels for GitHub Copilot","url":"https://github.blog/changelog/2026-06-04-larger-context-windows-and-configurable-reasoning-levels-for-github-copilot"},{"title":"GitHub Copilot in Visual Studio — May update","url":"https://github.blog/changelog/2026-06-04-github-copilot-in-visual-studio-may-update"},{"title":"Enterprise Teams is now generally available","url":"https://github.blog/changelog/2026-06-04-enterprise-teams-is-now-generally-available"},{"title":"Copilot Chat brings richer context to pull requests","url":"https://github.blog/changelog/2026-06-04-copilot-chat-brings-richer-context-to-pull-requests"}]},
+      {"date":"2026-06-05","status":"ok","entries":[{"title":"GPT-5.2 and GPT-5.2-Codex deprecated","url":"https://github.blog/changelog/2026-06-05-gpt-5-2-and-gpt-5-2-codex-deprecated"},{"title":"CodeQL 2.25.6 adds Swift 6.3.2 support and improves C# coverage","url":"https://github.blog/changelog/2026-06-05-codeql-2-25-6-adds-swift-6-3-2-support-and-improves-c-coverage"},{"title":"Enterprise-managed plugins in VS Code in public preview","url":"https://github.blog/changelog/2026-06-05-enterprise-managed-plugins-in-vs-code-in-public-preview"}]},
+      {"date":"2026-06-06","status":"empty","entries":[]},
+      {"date":"2026-06-07","status":"empty","entries":[]},
+      {"date":"2026-06-08","status":"ok","entries":[{"title":"IP allow list coverage for EMU namespaces in general availability","url":"https://github.blog/changelog/2026-06-08-ip-allow-list-coverage-for-emu-namespaces-in-general-availability"}]},
+      {"date":"2026-06-09","status":"ok","entries":[{"title":"Upcoming breaking changes for npm v12","url":"https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12"},{"title":"Claude Fable 5 is generally available for GitHub Copilot","url":"https://github.blog/changelog/2026-06-09-claude-fable-5-is-generally-available-for-github-copilot"},{"title":"Periodic code scanning of inactive repositories","url":"https://github.blog/changelog/2026-06-09-periodic-code-scanning-of-inactive-repositories"},{"title":"Security validation for third-party coding agents","url":"https://github.blog/changelog/2026-06-09-security-validation-for-third-party-coding-agents"}]},
+      {"date":"2026-06-10","status":"ok","entries":[{"title":"List, view, and create discussions in GitHub CLI","url":"https://github.blog/changelog/2026-06-10-list-view-and-create-discussions-in-github-cli"},{"title":"Manage sub-issues, types, and dependencies from GitHub CLI","url":"https://github.blog/changelog/2026-06-10-manage-sub-issues-types-and-dependencies-from-github-cli"},{"title":"Copilot Chat now sees your agent sessions","url":"https://github.blog/changelog/2026-06-10-copilot-chat-now-sees-your-agent-sessions"},{"title":"Enterprises can now create up to 500 cost centers","url":"https://github.blog/changelog/2026-06-10-enterprises-can-now-create-up-to-500-cost-centers"},{"title":"Incremental analysis for Go, C/C++, and CodeQL CLI","url":"https://github.blog/changelog/2026-06-10-incremental-analysis-for-go-c-c-and-codeql-cli"},{"title":"Dedicated security review command now available in Copilot CLI","url":"https://github.blog/changelog/2026-06-10-dedicated-security-review-command-now-available-in-copilot-cli"},{"title":"Dependabot version updates now support the Deno ecosystem","url":"https://github.blog/changelog/2026-06-09-dependabot-version-updates-now-support-the-deno-ecosystem"}]},
+      {"date":"2026-06-11","status":"ok","entries":[{"title":"GitHub Enterprise Server 3.21 is now generally available","url":"https://github.blog/changelog/2026-06-11-github-enterprise-server-3-21-is-now-generally-available"},{"title":"Bot-created pull requests can run workflows if approved","url":"https://github.blog/changelog/2026-06-11-bot-created-pull-requests-can-run-workflows-if-approved"},{"title":"AI usage report updates","url":"https://github.blog/changelog/2026-06-11-ai-usage-report-updates"},{"title":"Copilot CLI: Configure everything from one place with /settings","url":"https://github.blog/changelog/2026-06-11-copilot-cli-configure-everything-from-one-place-with-settings"},{"title":"New runner images in public preview","url":"https://github.blog/changelog/2026-06-11-new-runner-images-in-public-preview"},{"title":"GitHub Agentic Workflows is now in public preview","url":"https://github.blog/changelog/2026-06-11-github-agentic-workflows-is-now-in-public-preview"},{"title":"Agentic workflows no longer need a personal access token","url":"https://github.blog/changelog/2026-06-11-agentic-workflows-no-longer-need-a-personal-access-token"}]},
+      {"date":"2026-06-12","status":"ok","entries":[{"title":"Copilot code review: New configurations and controls","url":"https://github.blog/changelog/2026-06-12-copilot-code-review-new-configurations-and-controls"},{"title":"GitHub Actions: Minimum version enforcement timeline for self-hosted runners","url":"https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners"}]},
+      {"date":"2026-06-13","status":"empty","entries":[]},
+      {"date":"2026-06-14","status":"empty","entries":[]},
+      {"date":"2026-06-15","status":"ok","entries":[{"title":"Copilot usage metrics now include more of your active users","url":"https://github.blog/changelog/2026-06-15-copilot-usage-metrics-now-include-more-of-your-active-users"}]},
+      {"date":"2026-06-16","status":"ok","entries":[{"title":"GitHub Models is no longer available to new customers","url":"https://github.blog/changelog/2026-06-16-github-models-is-no-longer-available-to-new-customers"},{"title":"GitHub Code Quality generally available July 20, 2026","url":"https://github.blog/changelog/2026-06-16-github-code-quality-generally-available-july-20-2026"},{"title":"Organization-level enablement for GitHub Code Quality","url":"https://github.blog/changelog/2026-06-16-organization-level-enablement-for-github-code-quality"}]},
+      {"date":"2026-06-17","status":"ok","entries":[{"title":"Read remote repository content with GitHub CLI","url":"https://github.blog/changelog/2026-06-17-read-remote-repository-content-with-github-cli"},{"title":"Secret scanning updates – June 2026","url":"https://github.blog/changelog/2026-06-17-secret-scanning-updates-june-2026"},{"title":"Enterprise-managed settings now support bypass permission controls","url":"https://github.blog/changelog/2026-06-17-enterprise-managed-settings-now-support-bypass-permission-controls"},{"title":"Auto mode in Copilot Chat available for all users","url":"https://github.blog/changelog/2026-06-17-auto-mode-in-copilot-chat-available-for-all-users"},{"title":"Limit open pull requests for users without write access","url":"https://github.blog/changelog/2026-06-17-limit-open-pull-requests-for-users-without-write-access"},{"title":"Agent finder for GitHub Copilot now available","url":"https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available"},{"title":"Copilot individual plan sign-ups are reopening","url":"https://github.blog/changelog/2026-06-17-copilot-individual-plan-sign-ups-are-reopening"},{"title":"GitHub Copilot app generally available","url":"https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available"}]},
+      {"date":"2026-06-18","status":"ok","entries":[{"title":"Upcoming deprecation of Opus 4.6 (fast)","url":"https://github.blog/changelog/2026-06-18-upcoming-deprecation-of-opus-4-6-fast"},{"title":"MAI-Code-1-Flash available on more Copilot surfaces","url":"https://github.blog/changelog/2026-06-18-mai-code-1-flash-available-on-more-copilot-surfaces"},{"title":"Copilot code review: AGENTS.md support and UI improvements","url":"https://github.blog/changelog/2026-06-18-copilot-code-review-agents-md-support-and-ui-improvements"},{"title":"Detecting Duplicate Issues – Public Preview and issue fields MCP support for GitHub Issues","url":"https://github.blog/changelog/2026-06-18-duplicate-detection-and-issue-fields-mcp-support-for-github-issues"},{"title":"Copilot-authored pull requests now included in author searches","url":"https://github.blog/changelog/2026-06-18-copilot-authored-pull-requests-now-included-in-author-searches"},{"title":"Repository switcher generally available in global navigation","url":"https://github.blog/changelog/2026-06-18-repository-switcher-generally-available-in-global-navigation"},{"title":"Actions: Build custom images from custom images","url":"https://github.blog/changelog/2026-06-18-actions-build-custom-images-from-custom-images"},{"title":"Safer pull_request_target defaults for GitHub Actions checkout","url":"https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout"},{"title":"Control who and what triggers GitHub Actions workflows","url":"https://github.blog/changelog/2026-06-18-control-who-and-what-triggers-github-actions-workflows"},{"title":"Generated release notes credit you for Copilot pull requests","url":"https://github.blog/changelog/2026-06-18-generated-release-notes-credit-you-for-copilot-pull-requests"}]},
+      {"date":"2026-06-19","status":"ok","entries":[{"title":"AI credits consumed per user now in the Copilot usage metrics API","url":"https://github.blog/changelog/2026-06-19-ai-credits-consumed-per-user-now-in-the-copilot-usage-metrics-api"}]},
+      {"date":"2026-06-20","status":"empty","entries":[]},
+      {"date":"2026-06-21","status":"empty","entries":[]},
+      {"date":"2026-06-22","status":"ok","entries":[{"title":"New features and Claude as agent provider preview in JetBrains IDEs","url":"https://github.blog/changelog/2026-06-22-new-features-and-claude-as-agent-provider-preview-in-jetbrains-ides"}]},
+      {"date":"2026-06-23","status":"ok","entries":[{"title":"Secret scanning adds extended metadata for Replicate secrets","url":"https://github.blog/changelog/2026-06-23-secret-scanning-adds-extended-metadata-for-replicate-secrets"},{"title":"Fetch Code Quality findings via REST API","url":"https://github.blog/changelog/2026-06-23-fetch-code-quality-findings-via-rest-api"},{"title":"Automatic Dependabot access to GitHub-hosted registries","url":"https://github.blog/changelog/2026-06-23-automatic-dependabot-access-to-github-hosted-registries"},{"title":"Copilot CLI: New terminal interface is generally available","url":"https://github.blog/changelog/2026-06-23-copilot-cli-new-terminal-interface-is-generally-available"},{"title":"Deprecation of Python 3.9 for Dependabot","url":"https://github.blog/changelog/2026-06-23-deprecation-of-python-3-9-for-dependabot"},{"title":"GitHub Copilot app support for BYOK","url":"https://github.blog/changelog/2026-06-23-github-copilot-app-support-for-byok"}]},
+      {"date":"2026-06-24","status":"ok","entries":[{"title":"Self-service credential revocation for incident response","url":"https://github.blog/changelog/2026-06-24-self-service-credential-revocation-for-incident-response"},{"title":"Changes to model selection for Free and Student plans","url":"https://github.blog/changelog/2026-06-24-changes-to-model-selection-for-free-and-student-plans"}]},
+      {"date":"2026-06-25","status":"ok","entries":[{"title":"Copilot code review: Analysis depth and efficiency updates","url":"https://github.blog/changelog/2026-06-25-copilot-code-review-analysis-depth-and-efficiency-updates"},{"title":"Enterprise-managed settings now support strictKnownMarketplaces in VS Code and GitHub Copilot CLI","url":"https://github.blog/changelog/2026-06-25-enterprise-managed-settings-now-support-strictknownmarketplaces-in-vs-code-and-the-cli"},{"title":"Saved views for repository issues – Public Preview and adjustable row heights in projects","url":"https://github.blog/changelog/2026-06-25-saved-views-for-repository-issues-and-adjustable-row-heights-in-projects"},{"title":"More control over your GitHub-hosted runners","url":"https://github.blog/changelog/2026-06-25-more-control-over-your-github-hosted-runners"},{"title":"Actions steps can now be run in parallel","url":"https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel"},{"title":"npm adds preventive account protection for high-impact accounts","url":"https://github.blog/changelog/2026-06-25-npm-adds-preventive-account-protection-for-high-impact-accounts"},{"title":"Red Hat Enterprise Linux runner images are now in public preview","url":"https://github.blog/changelog/2026-06-25-red-hat-enterprise-linux-runner-images-are-now-in-public-preview"},{"title":"GitHub Copilot for Jira is now generally available","url":"https://github.blog/changelog/2026-06-25-github-copilot-for-jira-is-now-generally-available"},{"title":"Cost centers now support enterprise teams","url":"https://github.blog/changelog/2026-06-25-assign-enterprise-teams-to-cost-centers"}]},
+      {"date":"2026-06-26","status":"ok","entries":[{"title":"Track total merges by adoption phase in enterprise and organization reports","url":"https://github.blog/changelog/2026-06-26-track-total-merges-by-adoption-phase-in-enterprise-and-organization-reports"},{"title":"MAI-Code-1-Flash for Copilot Business and Copilot Enterprise","url":"https://github.blog/changelog/2026-06-26-mai-code-1-flash-for-copilot-business-and-copilot-enterprise"},{"title":"GitHub Desktop 3.6: Worktrees and deeper Copilot integration","url":"https://github.blog/changelog/2026-06-26-github-desktop-3-6-worktrees-and-deeper-copilot-integration"}]},
+      {"date":"2026-06-27","status":"empty","entries":[]},
+      {"date":"2026-06-28","status":"empty","entries":[]},
+      {"date":"2026-06-29","status":"ok","entries":[{"title":"Claude Opus 4.8 (fast mode) is now in preview for GitHub Copilot","url":"https://github.blog/changelog/2026-06-29-claude-opus-4-8-fast-mode-is-now-in-preview-for-github-copilot"},{"title":"Restrict issue creation to collaborators only","url":"https://github.blog/changelog/2026-06-29-restrict-issue-creation-to-collaborators-only"}]},
+      {"date":"2026-06-30","status":"ok","entries":[{"title":"Claude Sonnet 5 is generally available for GitHub Copilot","url":"https://github.blog/changelog/2026-06-30-claude-sonnet-5-is-generally-available-for-github-copilot"},{"title":"GitHub code coverage merge protection for pull requests","url":"https://github.blog/changelog/2026-06-30-github-code-coverage-merge-protection-for-pull-requests"},{"title":"Releases: Sidebar navigation and per-asset download counts","url":"https://github.blog/changelog/2026-06-30-releases-sidebar-navigation-and-per-asset-download-counts"},{"title":"Copilot Agent is now available in JetBrains AI Assistant","url":"https://github.blog/changelog/2026-06-30-copilot-agent-is-now-available-in-jetbrains-ai-assistant"},{"title":"Open source license compliance is in public preview","url":"https://github.blog/changelog/2026-06-30-open-source-license-compliance-is-in-public-preview"},{"title":"Dependabot no longer infers .npmrc","url":"https://github.blog/changelog/2026-06-30-dependabot-no-longer-infers-npmrc"},{"title":"Upcoming cloud data retention policy for closed security alerts","url":"https://github.blog/changelog/2026-06-30-cloud-data-retention-policy-for-closed-security-alerts"},{"title":"Per-user AI credit budgets available for cost centers","url":"https://github.blog/changelog/2026-06-30-per-user-ai-credit-budgets-available-for-cost-centers"}]}
+    ];
+
+    const totalEntries = updates.reduce((sum, day) => sum + day.entries.length, 0);
+    const loadedDays = updates.filter((day) => day.status !== "missing").length;
+    const activeDays = updates.filter((day) => day.entries.length > 0).length;
+    const emptyDays = updates.filter((day) => day.status === "empty").length;
+    const missingDays = updates.filter((day) => day.status === "missing").length;
+
+    document.getElementById("stat-entries").textContent = String(totalEntries);
+    document.getElementById("stat-active").textContent = `${activeDays}日`;
+    document.getElementById("stat-empty").textContent = `${emptyDays}日`;
+    document.getElementById("stat-loaded").textContent = `${loadedDays}/${updates.length}日`;
+    document.getElementById("source-note").textContent = missingDays > 0
+      ? `対象月の全${updates.length}日中、日次ファイルは${loadedDays}日分を読み込み済み。未作成ファイル ${missingDays}日は未集計として表示しています。`
+      : `対象月の全${updates.length}日分の日次ファイルを読み込み済みです（欠損なし）。`;
+
+    const timeline = document.getElementById("timeline");
+    for (const day of updates) {
+      const details = document.createElement("details");
+      details.className = "day";
+      const badgeText = day.status === "missing"
+        ? "日次ファイルなし"
+        : day.entries.length > 0
+          ? `${day.entries.length}件`
+          : "0件";
+      details.innerHTML = `<summary><strong>${day.date}</strong><span class="badge">${badgeText}</span></summary>`;
+      const body = document.createElement("div");
+      body.className = "day-body";
+      if (day.status === "missing") {
+        body.innerHTML = '<p class="empty">この日の日次ファイルがないため、更新は未集計です。</p>';
+      } else if (day.entries.length === 0) {
+        body.innerHTML = '<p class="empty">更新なし（0件）</p>';
+      } else {
+        const ul = document.createElement("ul");
+        ul.className = "entry-list";
+        for (const entry of day.entries) {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = entry.url;
+          a.textContent = entry.title;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+        body.appendChild(ul);
+      }
+      details.appendChild(body);
+      timeline.appendChild(details);
+    }
+
+    document.getElementById("open-all").addEventListener("click", () => {
+      document.querySelectorAll("details.day").forEach((el) => { el.open = true; });
+    });
+    document.getElementById("close-all").addEventListener("click", () => {
+      document.querySelectorAll("details.day").forEach((el) => { el.open = false; });
+    });
+  </script>
+</body>
+</html>
