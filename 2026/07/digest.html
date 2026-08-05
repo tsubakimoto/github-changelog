@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="ja" style="color-scheme: dark;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Changelog Digest - July 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            color-scheme: dark;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #f0f6fc;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 0.95em;
+            color: #8b949e;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-value {
+            color: #f0f6fc;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #f0f6fc;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #f0f6fc;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #161b22;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tag-ga {
+            background-color: #1f6feb;
+            color: #e7f0ff;
+        }
+
+        .tag-improvement {
+            background-color: #244b7a;
+            color: #e7f0ff;
+        }
+
+        .tag-breaking {
+            background-color: #7d2e1e;
+            color: #ffe9e4;
+        }
+
+        .tag-security {
+            background-color: #7d2e1e;
+            color: #ffe9e4;
+        }
+
+        .tag-preview {
+            background-color: #3d444d;
+            color: #e7f0ff;
+        }
+
+        .tag-announcement {
+            background-color: #3d444d;
+            color: #e7f0ff;
+        }
+
+        .tag-deprecated {
+            background-color: #8a5a12;
+            color: #fff2d9;
+        }
+
+        .tag-retirement {
+            background-color: #7d2e1e;
+            color: #ffe9e4;
+        }
+
+        .tag-fix {
+            background-color: #1f6feb;
+            color: #e7f0ff;
+        }
+
+        .legend-description {
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+
+        .toc {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin: 8px 0;
+        }
+
+        .toc-list a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        .toc-count {
+            color: #8b949e;
+            font-size: 0.9em;
+            margin-left: 8px;
+        }
+
+        .highlights {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .highlight-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .highlight-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .highlight-title {
+            margin-bottom: 8px;
+        }
+
+        .highlight-title a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .highlight-title a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-description {
+            color: #8b949e;
+            font-size: 0.95em;
+            margin-left: 0;
+        }
+
+        details {
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        details[open] {
+            background-color: #161b22;
+        }
+
+        summary {
+            padding: 15px 20px;
+            background-color: #0d1117;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 600;
+            color: #f0f6fc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary:hover {
+            background-color: #161b22;
+        }
+
+        details[open] > summary {
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .entry {
+            padding: 20px;
+            border-bottom: 1px solid #30363d;
+            background-color: #161b22;
+        }
+
+        .entry:last-child {
+            border-bottom: none;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .entry-date {
+            color: #8b949e;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .entry-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .entry-title {
+            margin-bottom: 12px;
+        }
+
+        .entry-title a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .entry-title a:hover {
+            text-decoration: underline;
+        }
+
+        .entry-description {
+            color: #c9d1d9;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .entry-action {
+            color: #8b949e;
+            font-size: 0.95em;
+            padding: 10px;
+            background-color: #0d1117;
+            border-left: 3px solid #30363d;
+            margin-top: 12px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #238636;
+            color: #fff;
+            border: 1px solid #2ea043;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #2ea043;
+        }
+
+        .search-box {
+            padding: 8px 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-size: 0.95em;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box::placeholder {
+            color: #8b949e;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .legend {
+                grid-template-columns: 1fr;
+            }
+
+            .entry-header {
+                flex-direction: column;
+            }
+
+            .entry-tags {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GitHub Changelog Digest</h1>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span>対象月:</span>
+                    <span class="meta-value">2026年7月</span>
+                </div>
+                <div class="meta-item">
+                    <span>総エントリ数:</span>
+                    <span class="meta-value">99</span>
+                </div>
+                <div class="meta-item">
+                    <span>製品数:</span>
+                    <span class="meta-value">10+</span>
+                </div>
+                <div class="meta-item">
+                    <span>更新のあった日数:</span>
+                    <span class="meta-value">21日</span>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2>タグの凡例</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="tag tag-ga">GA</span>
+                    <span class="legend-description">一般提供開始</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-improvement">Improvement</span>
+                    <span class="legend-description">既存機能の改善・機能追加</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-breaking">Breaking Change</span>
+                    <span class="legend-description">破壊的変更</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-security">Security</span>
+                    <span class="legend-description">セキュリティに関する変更</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-preview">Public Preview</span>
+                    <span class="legend-description">パブリックプレビュー</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-deprecated">Deprecated</span>
+                    <span class="legend-description">非推奨化</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-retirement">Retirement</span>
+                    <span class="legend-description">廃止・提供終了</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-fix">Fix</span>
+                    <span class="legend-description">不具合修正</span>
+                </div>
+                <div class="legend-item">
+                    <span class="tag tag-announcement">Announcement</span>
+                    <span class="legend-description">告知・予告</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>目次</h2>
+            <div class="toc">
+                <ul class="toc-list">
+                    <li><a href="#copilot">GitHub Copilot</a><span class="toc-count">35件</span></li>
+                    <li><a href="#code-security">Code Security</a><span class="toc-count">15件</span></li>
+                    <li><a href="#enterprise">Enterprise 管理</a><span class="toc-count">12件</span></li>
+                    <li><a href="#repositories">Repositories & Code</a><span class="toc-count">10件</span></li>
+                    <li><a href="#actions">GitHub Actions</a><span class="toc-count">6件</span></li>
+                    <li><a href="#projects">Projects & Issues</a><span class="toc-count">8件</span></li>
+                    <li><a href="#api">API & Webhooks</a><span class="toc-count">5件</span></li>
+                    <li><a href="#npm">npm & Packages</a><span class="toc-count">4件</span></li>
+                    <li><a href="#other">その他</a><span class="toc-count">4件</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>重要アップデート</h2>
+            <div class="highlights">
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-retirement">Retirement</span>
+                        <a href="https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026">GitHub Models is being fully retired on July 30, 2026</a>
+                    </div>
+                    <div class="highlight-description">⚠️ 7月30日に GitHub Models が完全終了。playground、model catalog、inference API、BYOK が利用不可に。Azure AI Foundry など代替先への移行が必須。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-ga">GA</span>
+                        <a href="https://github.blog/changelog/2026-07-20-github-code-quality-is-now-generally-available">GitHub Code Quality is now generally available</a>
+                    </div>
+                    <div class="highlight-description">GitHub Code Quality が GA。CodeQL と AI-assisted detection で PR 上の品質問題を検出。7月20日から課金開始。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-preview">Public Preview</span>
+                        <a href="https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview">Stacked pull requests are now in public preview</a>
+                    </div>
+                    <div class="highlight-description">巨大な変更を順序付きの小さな PR に分割してレビュー可能に。大規模変更の効率化が期待できる。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-deprecated">Deprecated</span>
+                        <a href="https://github.blog/changelog/2026-07-02-upcoming-deprecation-of-gemini-2-5-pro-and-gemini-3-flash">Upcoming deprecation of Gemini 2.5 Pro and Gemini 3 Flash</a>
+                    </div>
+                    <div class="highlight-description">⚠️ 7月31日に Gemini 2.5 Pro と Gemini 3 Flash が非推奨。Gemini 3.1 Pro / Gemini 3.6 Flash への移行が必要。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-ga">GA</span>
+                        <a href="https://github.blog/changelog/2026-07-01-enterprise-managed-settings-json-is-generally-available">Enterprise managed-settings.json is generally available</a>
+                    </div>
+                    <div class="highlight-description">Enterprise managed-settings.json が GA。`.github-private` の `copilot/managed-settings.json` で AI 標準を一元管理可能。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-improvement">Improvement</span>
+                        <a href="https://github.blog/changelog/2026-07-01-copilot-vision-is-generally-available">Copilot vision is generally available</a>
+                    </div>
+                    <div class="highlight-description">Copilot vision が GA。画像や PDF をチャットに直接添付して文脈として利用可能。VS Code、github.com、Copilot CLI で対応。</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-title">
+                        <span class="tag tag-security">Security</span>
+                        <a href="https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval">GitHub Actions holds potentially malicious workflows for approval</a>
+                    </div>
+                    <div class="highlight-description">public repository で危険な GitHub Actions workflow は実行前に承認が必須に。CI/CD 資格情報の保護が強化。</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 id="copilot">GitHub Copilot（35件）</h2>
+            <details open>
+                <summary>GitHub Copilot（35件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-enterprises-can-default-to-auto-model-selection">Enterprises can default to auto model selection</a></div>
+                    <div class="entry-description">Enterprise 管理者が managed-settings.json で Copilot のモデル選択を auto に設定可能に。新規会話の既定動作を統制しながら、ユーザーの手動切り替えも維持。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-enterprise-managed-settings-json-is-generally-available">Enterprise managed-settings.json is generally available</a></div>
+                    <div class="entry-description">Enterprise managed-settings.json が GA。`.github-private` の `copilot/managed-settings.json` で AI 標準を管理。VS Code と Copilot CLI で優先適用。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-kimi-k2-7-is-now-available-in-github-copilot">Kimi K2.7 Code is generally available in GitHub Copilot</a></div>
+                    <div class="entry-description">Kimi K2.7 Code が GitHub Copilot で GA。モデルピッカーから選択可能。Business / Enterprise では管理者による有効化が必要。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-copilot-vision-is-generally-available">Copilot vision is generally available</a></div>
+                    <div class="entry-description">Copilot vision が GA。画像や PDF をチャットに直接添付して文脈として利用可能。VS Code、github.com、Copilot CLI で対応。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-set-ai-credit-session-limits-in-copilot-cli-and-sdk">Set AI credit session limits in Copilot CLI and SDK</a></div>
+                    <div class="entry-description">Copilot CLI と SDK でセッションごとの AI credit 上限を設定可能に。インタラクティブでは `/limits`、非対話実行では `--max-ai-credits` で制御。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-copilot-cli-no-longer-needs-a-personal-access-token-in-github-actions">Copilot CLI no longer needs a personal access token in GitHub Actions</a></div>
+                    <div class="entry-description">GitHub Actions で Copilot CLI を GITHUB_TOKEN で実行可能に。長期 PAT 保存が不要に。`copilot-requests: write` 権限が必要。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-copilot-agent-session-streaming-is-now-in-public-preview">Copilot agent session streaming is now in public preview</a></div>
+                    <div class="entry-description">Enterprise Managed Users 向けに Copilot agent session データのストリーミングが利用可能に。SIEM や監査基盤へ流せるため、AI 利用の統制が強化。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-07</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-07-github-copilot-app-available-to-all">GitHub Copilot app available to all</a></div>
+                    <div class="entry-description">GitHub Copilot app がすべての Copilot プランで利用可能に。macOS、Windows、Linux に対応。Copilot Free や GitHub Education でも使用可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-07</div>
+                        <div class="entry-tags"><span class="tag tag-retirement">Retirement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-07-copilot-billing-preview-app-will-be-retired-on-august-3">Copilot Billing Preview app will be retired on August 3</a></div>
+                    <div class="entry-description">⚠️ Copilot Billing Preview app は 2026-08-03 に終了。billing settings の AI usage ページへ移行が必須。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-enterprise-managed-opentelemetry-export-for-vs-code-and-cli">Enterprise-managed OpenTelemetry export for VS Code and CLI</a></div>
+                    <div class="entry-description">Copilot の OpenTelemetry データ送信先を enterprise 管理設定で指定可能に。VS Code と Copilot CLI に適用。開発者の個別設定が不要に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-deploy-managed-copilot-settings-via-mdm-in-vs-code-and-cli">Deploy managed Copilot settings via MDM in VS Code and CLI</a></div>
+                    <div class="entry-description">GitHub Copilot の managed settings を MDM やファイルベースの設定でも配布可能に。Intune、Jamf、Group Policy などで統一設定を配信。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-09</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-09-openais-gpt-5-6-sol-terra-and-luna-are-now-available-in-github-copilot">OpenAI's GPT-5.6 Sol, Terra, and Luna are now available in GitHub Copilot</a></div>
+                    <div class="entry-description">GitHub Copilot で OpenAI の GPT-5.6 系モデルが順次利用可能に。Sol は高推論向け、Terra は汎用、Luna は軽量・低コスト向け。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-14</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-14-github-copilot-for-jetbrains-expands-byok-capabilities">GitHub Copilot for JetBrains expands BYOK capabilities</a></div>
+                    <div class="entry-description">GitHub Copilot for JetBrains に BYOK 機能が拡張。カスタムエンドポイント、プラグイン管理、Claude agent provider のカスタマイズが可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-14</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-14-security-reviews-now-available-in-the-github-copilot-app">Security reviews now available in the GitHub Copilot app</a></div>
+                    <div class="entry-description">GitHub Copilot app で `/security-review` を実行可能に。AI ベースのセキュリティレビューを日常の coding workflow から直接呼び出し可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-15</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-14-github-copilot-in-visual-studio-june-update">GitHub Copilot in Visual Studio — June update</a></div>
+                    <div class="entry-description">Visual Studio の Copilot に使用量の可視化、MCP サーバー更新時の信頼確認、C++ modernization agent の GA などが追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-17</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-17-repository-level-github-copilot-usage-metrics-generally-available">Repository-level GitHub Copilot usage metrics generally available</a></div>
+                    <div class="entry-description">Copilot usage metrics API にリポジトリ単位の 1 日レポートが追加。PR 作成・マージ数とコードレビュー数を取得可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-17</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-17-github-copilot-app-now-available-in-the-usage-metrics-api">GitHub Copilot app now available in the usage metrics API</a></div>
+                    <div class="entry-description">usage metrics API に GitHub Copilot app の利用状況が追加。アクティブユーザー数、セッション数、リクエスト数などを確認可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-17</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-17-copilot-code-review-customization-and-configurability-improvements">Copilot code review: Customization and configurability improvements</a></div>
+                    <div class="entry-description">Copilot code review のカスタマイズ性が拡張。ヘッドブランチ上の instructions を読み込み、`.github/workflows/copilot-code-review.yml` で実行環境を定義可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-21</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-21-gemini-3-6-flash-is-now-available-in-github-copilot">Gemini 3.6 Flash is now available in GitHub Copilot</a></div>
+                    <div class="entry-description">Gemini 3.6 Flash が GitHub Copilot で順次利用可能に。Web / アプリ開発や長めの agentic tasks に最適化。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-22</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-22-new-copilot-usage-metrics-impact-dashboard">New Copilot usage metrics impact dashboard</a></div>
+                    <div class="entry-description">Enterprise 管理者向けに新しい impact dashboard が追加。AI adoption phase ごとの cohort を可視化し、深い利用段階への移行を促進。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-23</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-23-copilot-cloud-agent-for-linear-is-now-generally-available">Copilot cloud agent for Linear is now generally available</a></div>
+                    <div class="entry-description">Linear の issue を Copilot cloud agent に割り当て可能に。非同期で下書き PR の作成まで進行。GitHub Actions ベースの一時環境で実行。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-24</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-24-claude-opus-5-is-now-available-in-github-copilot">Claude Opus 5 is now available in GitHub Copilot</a></div>
+                    <div class="entry-description">Claude Opus 5 が GitHub Copilot で利用可能に。長時間・複数ステップのコーディング作業に最適化。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-27</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-27-manage-github-copilot-app-access-with-a-dedicated-policy">Manage GitHub Copilot app access with a dedicated policy</a></div>
+                    <div class="entry-description">GitHub Copilot app に専用のアクセスポリシーが追加。Enterprise / Organization 単位で個別に有効・無効を制御可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-27</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-27-enterprise-managed-settings-now-apply-to-the-github-copilot-app">Enterprise managed settings in the GitHub Copilot app and Copilot cloud agent</a></div>
+                    <div class="entry-description">GitHub Copilot app と Copilot cloud agent が enterprise managed settings の対象に。managed-settings.json の設定が横断的に適用。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-28-github-copilot-app-usage-metrics-now-expand-across-report-rollups">GitHub Copilot app usage metrics now expand across report rollups</a></div>
+                    <div class="entry-description">Copilot app の利用状況が enterprise-user / organization-user レポートに反映。ユーザー単位の利用、モデル別・言語別の内訳を確認可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-28-grok-4-5-is-now-available-in-github-copilot">Grok 4.5 is now available in GitHub Copilot</a></div>
+                    <div class="entry-description">Grok 4.5 が GitHub Copilot で利用可能に。大きなコンテキスト、画像入力、段階的な reasoning effort に対応。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-27-github-copilot-for-jetbrains-adds-improvved-opentelemetry-configuration-and-model-management">GitHub Copilot for JetBrains adds improved OpenTelemetry configuration and model management</a></div>
+                    <div class="entry-description">GitHub Copilot for JetBrains に OpenTelemetry 設定、モデル管理、MCP servers と custom agents の対応強化が追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-29</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-29-copilot-code-review-agent-skills-and-mcp-now-generally-available">Copilot code review: Agent skills and MCP now generally available</a></div>
+                    <div class="entry-description">Copilot code review で agent skills と MCP サーバーの利用が GA。レビュー時にリポジトリ固有の手順や外部システムの文脈を取り込み可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-29</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-29-default-model-enablement-for-copilot-business-and-enterprise">Default model enablement for Copilot Business and Enterprise</a></div>
+                    <div class="entry-description">⚠️ Copilot Business と Enterprise で、一般提供されたモデルを既定で有効化する新しいポリシーが追加。8月26日から実際に反映。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-github-copilot-in-visual-studio-july-update">GitHub Copilot in Visual Studio — July update</a></div>
+                    <div class="entry-description">Visual Studio の Copilot に新しい Agent (Preview)、.NET / Azure 向けの built-in skills、選択コードの review が追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-limit-remote-control-to-managed-devices">Limit remote control to managed devices</a></div>
+                    <div class="entry-description">Copilot の remote control セッションをホストできるデバイスを制限可能に。managed settings で SSO 必須、無効化、許可の切り替えを制御。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-github-copilot-in-visual-studio-code-july-2026-releases">GitHub Copilot in Visual Studio Code, July 2026 releases</a></div>
+                    <div class="entry-description">VS Code の 2026年7月リリースで Agents window、multi-chat、chat/model 更新、browser/terminal/editor 改善が提供。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-31</div>
+                        <div class="entry-tags"><span class="tag tag-deprecated">Deprecated</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-31-gemini-2-5-pro-and-gemini-3-flash-deprecated">Gemini 2.5 Pro and Gemini 3 Flash deprecated</a></div>
+                    <div class="entry-description">⚠️ Gemini 2.5 Pro と Gemini 3 Flash が非推奨に。代替は Gemini 3.1 Pro (Preview) と Gemini 3.6 Flash。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-31</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-31-enterprise-teams-model-policy-targeting-in-public-preview">Enterprise teams model policy targeting in public preview</a></div>
+                    <div class="entry-description">Enterprise teams 単位で Copilot のモデル利用を制御できる public preview が開始。Enterprise 全体のベースラインを保ちながら、特定チームに追加モデルを許可可能。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="code-security">Code Security（15件）</h2>
+            <details>
+                <summary>Code Security（15件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-secret-scanning-adds-validators-for-asana-ibm-and-messagebird">Secret scanning adds validators for Asana, IBM, and MessageBird</a></div>
+                    <div class="entry-description">Secret scanning に Asana、IBM、MessageBird の有効性検証が追加。漏えいした値が実際に有効かどうかを判定可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-secret-scanning-public-monitoring-for-enterprises">Secret scanning public monitoring for enterprises</a></div>
+                    <div class="entry-description">Enterprise 向け Secret Protection で github.com 上の公開領域をリアルタイム監視する public monitoring が public preview に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-07</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-07-secret-scanning-extended-metadata-and-multipart-validation">Secret scanning extended metadata and multipart validation</a></div>
+                    <div class="entry-description">Secret scanning が検出した secret の所有者や作成日・期限などの補足メタデータをより広く表示。multipart validation も拡張。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-innersource-security-advisories-are-generally-available">Innersource security advisories are generally available</a></div>
+                    <div class="entry-description">GitHub Advanced Security の Enterprise Cloud 利用者向けに、内部向けの security advisory を公開可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-10</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-10-codeql-2-26-0-adds-kotlin-2-4-0-support-and-ai-prompt-injection-detection">CodeQL 2.26.0 adds Kotlin 2.4.0 support and AI prompt injection detection</a></div>
+                    <div class="entry-description">CodeQL 2.26.0 で Kotlin 2.4.0 対応が追加。JavaScript / TypeScript では system prompt injection を検出する新しいクエリが追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-10</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-10-clearer-names-for-secret-scanning-detector-types">Clearer names for secret scanning detector types</a></div>
+                    <div class="entry-description">Secret scanning の detector type 名称が、実際の検出方法に合わせてより分かりやすい名前に変更。検出挙動そのものは変わらず。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-14</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-14-code-scanning-shows-ai-security-detections-on-pull-requests">Code scanning shows AI security detections on pull requests</a></div>
+                    <div class="entry-description">Code scanning が CodeQL ではカバーしきれない言語やフレームワークに対して AI ベースの検出を PR 上で表示。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-14</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-14-dependabot-version-updates-introduce-default-package-cooldown">Dependabot version updates introduce default package cooldown</a></div>
+                    <div class="entry-description">Dependabot の version updates は既定で新しいリリース公開から 3 日待って PR を作成。セキュリティ更新は遅延せず。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-15</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-15-improvements-to-secret-scanning-and-public-monitoring">Improvements to secret scanning and public monitoring</a></div>
+                    <div class="entry-description">Secret scanning に Resend の新しいパートナー対応が追加。VolcEngine のシークレットは push protection の既定対象に拡張。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-28-dependabot-alerts-on-malicious-packages-across-more-ecosystems">Dependabot alerts on malicious packages across more ecosystems</a></div>
+                    <div class="entry-description">GitHub Advisory Database が OpenSSF malicious-packages の情報を取り込み。Dependabot の malware alerts が npm 以外の ecosystem にも広がり。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-security">Security</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval">GitHub Actions holds potentially malicious workflows for approval</a></div>
+                    <div class="entry-description">public repository で危険と判断された GitHub Actions workflow run は、実行前に write 権限のある collaborator の承認を要求。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-29</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-29-codeql-2-26-1-improves-analysis-accuracy-and-framework-coverage">CodeQL 2.26.1 improves analysis accuracy and framework coverage</a></div>
+                    <div class="entry-description">CodeQL 2.26.1 で Go、Java/Kotlin、JavaScript/TypeScript のフレームワーク対応が広がり、Rust の false positive も減少。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="enterprise">Enterprise 管理（12件）</h2>
+            <details>
+                <summary>Enterprise 管理（12件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-improved-accuracy-and-coverage-in-copilot-usage-metrics-reports">Improved accuracy and coverage in Copilot usage metrics reports</a></div>
+                    <div class="entry-description">Copilot usage metrics API の精度とカバレッジが改善。CLI の suggested lines of code が計上されるように。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-cost-centers-now-support-included-usage-caps">Cost centers now support AI credit pools</a></div>
+                    <div class="entry-description">Cost center ごとに enterprise の月間 included AI credits の利用上限を設定可能に。REST API で利用可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-07</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-07-per-user-budgets-for-cost-centers-in-the-billing-ui">Per-user budgets for cost centers in the billing UI</a></div>
+                    <div class="entry-description">GitHub Enterprise Cloud の billing UI から cost center に対するユーザー単位の予算を直接設定可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-10</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-10-per-user-states-for-multi-user-budgets-in-the-rest-api">Per-user states for multi-user budgets in the REST API</a></div>
+                    <div class="entry-description">REST API で multi-user budget に対する各ユーザーの消費状況を 1 つのエンドポイントから取得可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-13</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-13-github-code-quality-license-estimate-in-public-preview">GitHub Code Quality license estimate in public preview</a></div>
+                    <div class="entry-description">GitHub Code Quality の利用状況から、エンタープライズ単位で想定ライセンス費用を確認可能に。7月20日の GA 前に導入後の請求インパクトを把握可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-16</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-16-rest-api-endpoints-for-visual-studio-subscription-management">REST API endpoints for Visual Studio Subscription management</a></div>
+                    <div class="entry-description">GitHub Enterprise Cloud の admin 向けに Visual Studio Subscription の割り当てを REST API で管理するエンドポイントが追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-20</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-20-ai-credit-pools-for-cost-centers-in-the-billing-ui">AI credit pools for cost centers in the billing UI</a></div>
+                    <div class="entry-description">Cost center の AI credit pool を billing UI から作成・編集可能に。pool の上限は割り当て済み Copilot ライセンス数から自動計算。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-20</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-20-github-code-quality-is-now-generally-available">GitHub Code Quality is now generally available</a></div>
+                    <div class="entry-description">GitHub Code Quality が GitHub Enterprise Cloud と GitHub Team で一般提供に。CodeQL と AI-assisted detection を組み合わせ。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-22</div>
+                        <div class="entry-tags"><span class="tag tag-announcement">Announcement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-22-upcoming-ghes-change-impacting-uploading-support-bundles">Upcoming GHES change impacting uploading support bundles</a></div>
+                    <div class="entry-description">⚠️ 2026-08-18 以降、古い GHES からのコマンドラインによる support bundle アップロードが、必要なセキュリティパッチ未適用の場合に拒否。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-retirement">Retirement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-github-models-is-now-retired">GitHub Models is now retired</a></div>
+                    <div class="entry-description">⚠️ GitHub Models は 2026年7月30日で終了。playground、model catalog、inference API、BYOK がすべて利用不可に。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="repositories">Repositories & Code（10件）</h2>
+            <details>
+                <summary>Repositories & Code（10件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-07</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-07-restrict-who-can-dismiss-reviews-in-rulesets">Restrict who can dismiss reviews in rulesets</a></div>
+                    <div class="entry-description">Repository rulesets で、プルリクエストレビューを dismiss できるユーザー・チーム・アプリを細かく制限可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-09</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-09-ask-copilot-for-a-repository-overview">Ask Copilot for a repository overview</a></div>
+                    <div class="entry-description">github.com 上で、初見のリポジトリに対して Copilot に高レベルの概要を求められるように。README がない場合は生成も可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-16</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-16-advanced-search-for-projects-is-generally-available">Advanced search for Projects is generally available</a></div>
+                    <div class="entry-description">GitHub Projects のフィルターバーで AND/OR を使った複雑な検索式が一般提供に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-16</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-16-repository-admins-can-archive-pull-requests">Repository admins can archive pull requests</a></div>
+                    <div class="entry-description">Repository admins が pull request を archive して、公開表示から外せるように。archived PR は close かつ lock。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-reference-same-repository-actions-with-self-repository-syntax">Reference same-repository actions with self-repository syntax</a></div>
+                    <div class="entry-description">同じリポジトリ内の action や reusable workflow を `$/.` から始まる self-repository syntax で参照可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-30</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-30-stacked-pull-requests-are-now-in-public-preview">Stacked pull requests are now in public preview</a></div>
+                    <div class="entry-description">Stacked pull requests が public preview に。巨大な変更を順序付きの小さな PR に分割してレビュー可能。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="actions">GitHub Actions（6件）</h2>
+            <details>
+                <summary>GitHub Actions（6件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-setup-java-v5-5-0-signature-verification-kona-jdk-and-maven-fixes">setup-java v5.5.0: signature verification, Kona JDK, and Maven fixes</a></div>
+                    <div class="entry-description">`actions/setup-java` v5.5.0 で JDK ダウンロード時の署名検証が追加。Kona JDK のサポートと Maven 向けの修正も含む。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-breaking">Breaking Change</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-npm-install-time-security-and-gat-bypass2fa-deprecation">npm install-time security and GAT bypass2fa deprecation</a></div>
+                    <div class="entry-description">npm v12 が GA。install 時のセキュリティ既定値が有効に。lifecycle scripts の自動動作は明示的な opt-in が必要。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-16</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-16-xcode-27-runner-image-now-in-public-preview">Xcode 27 runner image now in public preview</a></div>
+                    <div class="entry-description">GitHub-hosted macOS runners で Xcode 27 の runner image が public preview に。arm64 でのみ利用可能。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-28</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata">npm publish-time malware scanning and dual-use metadata</a></div>
+                    <div class="entry-description">npm は公開時に自動マルウェアスキャンを行うように。dual-use パッケージ向けに新しい申告要件が導入。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-31</div>
+                        <div class="entry-tags"><span class="tag tag-breaking">Breaking Change</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens">Restricting npm bypass-2FA granular access tokens</a></div>
+                    <div class="entry-description">⚠️ npm の 2FA バイパス設定付き granular access tokens が、トークン作成などの機微な操作を実行できなくなる。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="projects">Projects & Issues（8件）</h2>
+            <details>
+                <summary>Projects & Issues（8件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-issue-fields-are-now-generally-available">Issue fields are now generally available</a></div>
+                    <div class="entry-description">Issue fields が一般提供に。優先度、工数、日付などの構造化メタデータを issue に持たせられるように。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-13</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-13-separate-sso-and-organizations-pages-in-settings">Separate SSO and Organizations pages in Settings</a></div>
+                    <div class="entry-description">ユーザー設定の「SSO & Organizations」ページが SSO と Organizations の 2 つの独立したページに分割。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-23</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-23-multi-select-fields-for-projects-and-issues-in-public-preview">Multi-select fields for Projects and Issues in public preview</a></div>
+                    <div class="entry-description">Projects と Issue fields に multi-select field が追加。1 つの項目へ複数の値を持たせられるように。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-23</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-23-agent-automation-controls-in-github-issues-in-public-preview">Agent automation controls in GitHub Issues in public preview</a></div>
+                    <div class="entry-description">GitHub Issues の agent automation に approvals・confidence・rationale が追加。低/中 confidence の変更はレビュー待ちに可能。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="api">API & Webhooks（5件）</h2>
+            <details>
+                <summary>API & Webhooks（5件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-add-review-cycles-and-time-to-adoption-phases-in-the-usage-api">Add review cycles and time to adoption phases in the usage API</a></div>
+                    <div class="entry-description">Copilot usage metrics API の adoption phase 集計に review cycles と time の指標が追加。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-codex-as-agent-provider-and-agentic-enhancements-in-jetbrains-ides">Codex as agent provider and agentic enhancements in JetBrains IDEs</a></div>
+                    <div class="entry-description">JetBrains IDE 向けに Codex を新しい agent provider として利用可能に。MCP server 管理の強化も含む。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-23</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-23-github-mcp-server-supports-the-next-mcp-specification">GitHub MCP Server supports the next MCP specification</a></div>
+                    <div class="entry-description">GitHub MCP Server が次期 MCP 仕様に先行対応。stateless 化により、スケール性と互換性が改善。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="npm">npm & Packages（4件）</h2>
+            <details>
+                <summary>npm & Packages（4件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-improvement">Improvement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-new-c-language-server-config-skill-for-copilot-cli">New C++ language server config skill for Copilot CLI</a></div>
+                    <div class="entry-description">Copilot CLI に C++ Language Server 向けの新しいセットアップ skill が追加。`compile_commands.json` の生成・更新を自動化。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-ga">GA</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-github-copilot-in-visual-studio-code-june-2026-releases">GitHub Copilot in Visual Studio Code, June 2026 releases</a></div>
+                    <div class="entry-description">VS Code v1.123 から v1.127 までの Copilot 関連更新。統合ブラウザの改善、parallel sessions、usage の見やすさ向上など。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-mobile">Mobile</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-github-mobile-fix-merge-conflicts-with-copilot-cloud-agent">GitHub Mobile: Fix merge conflicts with Copilot cloud agent</a></div>
+                    <div class="entry-description">GitHub Mobile から PR の merge conflicts を Copilot cloud agent で修正可能に。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-08</div>
+                        <div class="entry-tags"><span class="tag tag-mobile">Mobile</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-08-github-mobile-live-notifications-for-copilot-cli-sessions">GitHub Mobile: Live notifications for Copilot CLI sessions</a></div>
+                    <div class="entry-description">GitHub Mobile の live coding agent notifications が Copilot CLI session に対応。iOS と Android で進捗を確認可能。</div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="other">その他（4件）</h2>
+            <details>
+                <summary>その他（4件）</summary>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-01</div>
+                        <div class="entry-tags"><span class="tag tag-retirement">Retirement</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026">GitHub Models is being fully retired on July 30, 2026</a></div>
+                    <div class="entry-description">⚠️ GitHub Models は 2026-07-30 に完全終了。7/16 と 7/23 には短時間の brownout も予定。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-02</div>
+                        <div class="entry-tags"><span class="tag tag-deprecated">Deprecated</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-02-upcoming-deprecation-of-gemini-2-5-pro-and-gemini-3-flash">Upcoming deprecation of Gemini 2.5 Pro and Gemini 3 Flash</a></div>
+                    <div class="entry-description">⚠️ Copilot の全体験で Gemini 2.5 Pro と Gemini 3 Flash が 2026-07-31 に非推奨に。代替は Gemini 3.1 Pro と Gemini 3.6 Flash。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-09</div>
+                        <div class="entry-tags"><span class="tag tag-preview">Public Preview</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-09-organization-level-targeting-for-github-code-quality">Organization-level targeting for GitHub Code Quality</a></div>
+                    <div class="entry-description">Organization owners が GitHub Code Quality の有効化・無効化を対象リポジトリ単位で行える public preview。</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-date">2026-07-17</div>
+                        <div class="entry-tags"><span class="tag tag-mobile">Mobile</span></div>
+                    </div>
+                    <div class="entry-title"><a href="https://github.blog/changelog/2026-07-17-github-mobile-fix-pull-request-comments-with-copilot-cloud-agent">GitHub Mobile: Fix pull request comments with Copilot cloud agent</a></div>
+                    <div class="entry-description">GitHub Mobile から PR コメントの `Fix with Copilot` を直接起動可能に。</div>
+                </div>
+            </details>
+        </section>
+
+        <footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #30363d; color: #8b949e; font-size: 0.9em; text-align: center;">
+            <p>Generated: 2026-08-06 | Source: <a href="https://github.blog/changelog/" style="color: #58a6ff;">GitHub Changelog</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // 一括開閉機能
+        const detailsElements = document.querySelectorAll('details');
+        const toggleAllBtn = document.createElement('button');
+        toggleAllBtn.textContent = 'すべて展開';
+        toggleAllBtn.style.marginBottom = '20px';
+
+        let allOpen = false;
+        toggleAllBtn.addEventListener('click', () => {
+            allOpen = !allOpen;
+            detailsElements.forEach(details => {
+                details.open = allOpen;
+            });
+            toggleAllBtn.textContent = allOpen ? 'すべて閉じる' : 'すべて展開';
+        });
+
+        // 最初の h2 の前に挿入
+        const firstH2 = document.querySelector('h2');
+        if (firstH2) {
+            firstH2.parentNode.insertBefore(toggleAllBtn, firstH2);
+        }
+
+        // テキスト検索機能
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'search-box';
+        searchInput.placeholder = 'タイトルまたは説明で検索...';
+        searchInput.style.marginBottom = '20px';
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const entries = document.querySelectorAll('.entry');
+            entries.forEach(entry => {
+                const title = entry.querySelector('.entry-title').textContent.toLowerCase();
+                const description = entry.querySelector('.entry-description').textContent.toLowerCase();
+                const matches = title.includes(query) || description.includes(query);
+                entry.style.display = matches ? 'block' : 'none';
+            });
+        });
+
+        if (firstH2) {
+            firstH2.parentNode.insertBefore(searchInput, firstH2);
+        }
+    </script>
+</body>
+</html>
