@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja" style="color-scheme: dark;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Changelog Monthly Digests</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            color-scheme: dark;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #f0f6fc;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            color: #8b949e;
+            font-size: 0.95em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .digests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .digest-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .digest-card:hover {
+            background-color: #1c2128;
+            border-color: #58a6ff;
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .digest-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #58a6ff;
+        }
+
+        .digest-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #8b949e;
+        }
+
+        .digest-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .digest-meta-item strong {
+            color: #c9d1d9;
+            min-width: 100px;
+        }
+
+        .digest-description {
+            color: #8b949e;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid #30363d;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background-color: #161b22;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #58a6ff;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #30363d;
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .digests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 GitHub Changelog Monthly Digests</h1>
+            <p class="subtitle">GitHub の月別アップデート概要</p>
+            <p class="description">
+                GitHub Changelog の日次更新を月ごとにまとめたダイジェストです。
+                各月のアップデートを製品カテゴリ別に整理し、重要な変更をハイライトしています。
+            </p>
+        </header>
+
+        <div class="digests-grid">
+            <a href="./2026/07/digest.html" class="digest-card">
+                <h2>2026年7月</h2>
+                <div class="digest-meta">
+                    <div class="digest-meta-item">
+                        <strong>エントリ数:</strong>
+                        <span>99件</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>カテゴリ:</strong>
+                        <span>9個</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>更新日数:</strong>
+                        <span>21日</span>
+                    </div>
+                </div>
+                <p class="digest-description">
+                    GitHub Copilot の新モデル対応、Code Quality の GA、Stacked PRs など、
+                    7月の主要なアップデートを網羅しています。
+                </p>
+            </a>
+
+            <a href="./2026/06/digest.html" class="digest-card">
+                <h2>2026年6月</h2>
+                <div class="digest-meta">
+                    <div class="digest-meta-item">
+                        <strong>エントリ数:</strong>
+                        <span>データ取得中</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>カテゴリ:</strong>
+                        <span>複数</span>
+                    </div>
+                </div>
+                <p class="digest-description">
+                    6月の GitHub アップデートをカテゴリ別に整理したダイジェストです。
+                </p>
+            </a>
+
+            <a href="./2026/05/digest.html" class="digest-card">
+                <h2>2026年5月</h2>
+                <div class="digest-meta">
+                    <div class="digest-meta-item">
+                        <strong>エントリ数:</strong>
+                        <span>データ取得中</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>カテゴリ:</strong>
+                        <span>複数</span>
+                    </div>
+                </div>
+                <p class="digest-description">
+                    5月の GitHub アップデートをカテゴリ別に整理したダイジェストです。
+                </p>
+            </a>
+
+            <a href="./2026/04/digest.html" class="digest-card">
+                <h2>2026年4月</h2>
+                <div class="digest-meta">
+                    <div class="digest-meta-item">
+                        <strong>エントリ数:</strong>
+                        <span>データ取得中</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>カテゴリ:</strong>
+                        <span>複数</span>
+                    </div>
+                </div>
+                <p class="digest-description">
+                    4月の GitHub アップデートをカテゴリ別に整理したダイジェストです。
+                </p>
+            </a>
+
+            <a href="./2026/03/digest.html" class="digest-card">
+                <h2>2026年3月</h2>
+                <div class="digest-meta">
+                    <div class="digest-meta-item">
+                        <strong>エントリ数:</strong>
+                        <span>データ取得中</span>
+                    </div>
+                    <div class="digest-meta-item">
+                        <strong>カテゴリ:</strong>
+                        <span>複数</span>
+                    </div>
+                </div>
+                <p class="digest-description">
+                    3月の GitHub アップデートをカテゴリ別に整理したダイジェストです。
+                </p>
+            </a>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">5</div>
+                <div class="stat-label">月のダイジェスト</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">99+</div>
+                <div class="stat-label">アップデート</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">9+</div>
+                <div class="stat-label">製品カテゴリ</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>GitHub Changelog Monthly Digests | 最終更新: 2026年8月6日</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">
+                <a href="https://github.com/tsubakimoto/github-changelog" style="color: #58a6ff; text-decoration: none;">
+                    GitHub Repository →
+                </a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
