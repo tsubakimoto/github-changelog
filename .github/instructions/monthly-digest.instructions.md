@@ -104,6 +104,13 @@ applyTo: '**/digest.html'
   - タグは小さめのピル型バッジにし、色だけでなくラベル文字でも判別できるようにする（ダーク背景では彩度を抑えた背景色＋明るい文字色にする）
 - 目次から各製品セクションへアンカー遷移できるようにする。
 - `meta viewport` を必ず設定する。
+- 公開ページのプレビュー（Slack / Discord / X など）が出るよう、次のメタデータを必ず入れる。
+  - `og:title` / `og:description` / `og:url` / `og:type` / `og:locale` / `og:site_name`
+  - `og:image` は専用画像を作らず、公開 URL のページスクリーンショットを使う。
+    - 公開 URL: `https://tsubakimoto.github.io/github-changelog/YYYY/MM/digest.html`
+    - 画像 URL: `https://s.wordpress.com/mshots/v1/` + 公開 URL をパーセントエンコードした値 + `?w=1200`
+  - `twitter:card` は `summary_large_image`。`twitter:title` / `twitter:description` / `twitter:image` も同じ内容にする。
+  - `canonical` と `meta description` も公開 URL に合わせる。
 - 折りたたみの一括開閉機能を設ける。
 - 追加してよい任意機能（実装する場合も単一ファイル内で完結させる）:
   - タグによる絞り込み
@@ -127,3 +134,4 @@ applyTo: '**/digest.html'
 - [ ] 期限付き対応の日付が本文に残っている
 - [ ] ダークテーマ固定で表示崩れがなく、コントラストが確保されている
 - [ ] モバイル幅で読みやすい
+- [ ] ページプレビュー用の OGP / Twitter メタデータと canonical を入れた
