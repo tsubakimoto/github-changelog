@@ -23,13 +23,22 @@ jobs:
       - name: Pull container image
         run: docker pull ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev
 
+      # Restore the previous `copilot --help` output so it can be diffed below.
+      - name: Restore previous copilot --help output
+        uses: actions/cache/restore@v4
+        with:
+          path: copilot-help-previous.txt
+          key: copilot-help-${{ github.run_id }}
+          restore-keys: |
+            copilot-help-
+
       - name: Run container
         shell: bash
         run: |
           set -o pipefail
           set -e
           docker run --rm ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev \
-            sh -c 'copilot update && copilot version && copilot --help' \
+            sh -c 'copilot update && copilot version && echo "===HELP_START===" && copilot --help && echo "===HELP_END==="' \
             2>&1 | tee docker-output.txt
           container_status=${PIPESTATUS[0]}
 
@@ -41,3 +50,42 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
           exit "$container_status"
+
+      # Extract only the `copilot --help` section for comparison.
+      - name: Extract copilot --help output
+        shell: bash
+        run: |
+          sed -n '/===HELP_START===/,/===HELP_END===/p' docker-output.txt \
+            | sed '1d;$d' > copilot-help-current.txt
+
+      - name: Compare with previous copilot --help output
+        shell: bash
+        run: |
+          {
+            echo '## Copilot CLI --help diff'
+            if [ -f copilot-help-previous.txt ]; then
+              if diff -u copilot-help-previous.txt copilot-help-current.txt > help-diff.txt; then
+                echo 'No differences detected in `copilot --help` output.'
+              else
+                echo '### Changed command options'
+                echo '```diff'
+                grep -E '^[+-][^+-]' help-diff.txt || echo '(no option-level changes detected)'
+                echo '```'
+                echo '### Full diff'
+                echo '```diff'
+                cat help-diff.txt
+                echo '```'
+              fi
+            else
+              echo 'No previous output found. This is the first run.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save current copilot --help output for next run
+        run: cp copilot-help-current.txt copilot-help-previous.txt
+
+      - name: Cache current copilot --help output
+        uses: actions/cache/save@v4
+        with:
+          path: copilot-help-previous.txt
+          key: copilot-help-${{ github.run_id }}
