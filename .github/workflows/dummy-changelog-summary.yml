@@ -47,7 +47,7 @@ jobs:
         run: |
           docker run --rm \
             --env COPILOT_MODEL="gpt-5.4-mini" \
-            --env COPILOT_PROVIDER_BASE_URL="${{ vars.COPILOT_PROVIDER_BASE_URL }}gpt-5.4-mini" \
+            --env COPILOT_PROVIDER_BASE_URL="${{ secrets.COPILOT_PROVIDER_BASE_URL }}gpt-5.4-mini" \
             --env COPILOT_PROVIDER_TYPE="azure" \
             --env COPILOT_PROVIDER_API_KEY="${{ secrets.COPILOT_PROVIDER_API_KEY }}" \
             --env COPILOT_PROVIDER_WIRE_API="responses" \
