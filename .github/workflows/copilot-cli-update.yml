@@ -27,7 +27,10 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          docker run --rm ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev 2>&1 | tee docker-output.txt
+          set -e
+          docker run --rm ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev \
+            sh -c 'copilot update && copilot version && copilot --help' \
+            2>&1 | tee docker-output.txt
           container_status=${PIPESTATUS[0]}
 
           {

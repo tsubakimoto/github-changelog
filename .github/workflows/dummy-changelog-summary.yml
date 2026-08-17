@@ -1,0 +1,72 @@
+name: (Dummy) Summary of GitHub Changelog
+on:
+  workflow_dispatch:
+    inputs:
+      post-date:
+        description: 'Date for changelog summary (YYYY-MM-DD)'
+        required: true
+        type: string
+  # schedule:
+  #   - cron: '0 10 * * *'
+
+# permissions:
+#   contents: write
+
+jobs:
+  summarize-github-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Resolve target date and output path
+        id: output-path
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_POST_DATE: ${{ github.event.inputs['post-date'] }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ -n "$INPUT_POST_DATE" ]; then
+            POST_DATE="$INPUT_POST_DATE"
+          else
+            POST_DATE="$(TZ=Asia/Tokyo date -d '1 day ago' +%F)"
+          fi
+
+          YEAR="${POST_DATE:0:4}"
+          MONTH="${POST_DATE:5:2}"
+          OUTPUT_DIR="$YEAR/$MONTH"
+          OUTPUT_PATH="$OUTPUT_DIR/$POST_DATE.md"
+          mkdir -p "$OUTPUT_DIR"
+          echo "post_date=$POST_DATE" >> "$GITHUB_OUTPUT"
+          echo "output_path=$OUTPUT_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Run Copilot CLI
+        run: |
+          docker run --rm \
+            --env COPILOT_MODEL="gpt-5.4-mini" \
+            --env COPILOT_PROVIDER_BASE_URL="${{ vars.COPILOT_PROVIDER_BASE_URL }}gpt-5.4-mini" \
+            --env COPILOT_PROVIDER_TYPE="azure" \
+            --env COPILOT_PROVIDER_API_KEY="${{ secrets.COPILOT_PROVIDER_API_KEY }}" \
+            --env COPILOT_PROVIDER_WIRE_API="responses" \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev \
+            copilot \
+              --prompt "/github-changelog summary ${{ steps.output-path.outputs.post_date }} save to ${{ steps.output-path.outputs.output_path }}" \
+              --yolo \
+              --no-ask-user
+          cat "${{ steps.output-path.outputs.output_path }}" >> "$GITHUB_STEP_SUMMARY"
+
+      # - name: Commit and push summary
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git add "${{ steps.output-path.outputs.output_path }}"
+      #     if git diff --cached --quiet; then
+      #       echo "No changes to commit."
+      #       exit 0
+      #     fi
+      #     git commit -m "Add GitHub changelog summary for ${{ steps.output-path.outputs.post_date }}"
+      #     git push origin HEAD:main
