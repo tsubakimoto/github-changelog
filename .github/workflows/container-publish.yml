@@ -32,4 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcpcli:dev
+          tags: ghcr.io/${{ github.repository }}/ghcpcli:dev
