@@ -20,6 +20,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Pull container image
+        run: docker pull ghcr.io/tsubakimoto/github-changelog/ghcpcli:dev
+
       - name: Run container
         shell: bash
         run: |
