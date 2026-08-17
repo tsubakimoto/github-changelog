@@ -43,6 +43,7 @@ jobs:
           echo "output_path=$OUTPUT_PATH" >> "$GITHUB_OUTPUT"
 
       - name: Run Copilot CLI
+        id: run-copilot
         run: |
           docker run --rm \
             --env COPILOT_MODEL="gpt-5.4-mini" \
@@ -57,16 +58,23 @@ jobs:
               --prompt "/github-changelog summary ${{ steps.output-path.outputs.post_date }} save to ${{ steps.output-path.outputs.output_path }}" \
               --yolo \
               --no-ask-user
+          if [ ! -f "${{ steps.output-path.outputs.output_path }}" ]; then
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Summary file was not created; skipping subsequent steps."
+            exit 0
+          fi
+          echo "exists=true" >> "$GITHUB_OUTPUT"
           cat "${{ steps.output-path.outputs.output_path }}" >> "$GITHUB_STEP_SUMMARY"
 
-      # - name: Commit and push summary
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #     git add "${{ steps.output-path.outputs.output_path }}"
-      #     if git diff --cached --quiet; then
-      #       echo "No changes to commit."
-      #       exit 0
-      #     fi
-      #     git commit -m "Add GitHub changelog summary for ${{ steps.output-path.outputs.post_date }}"
+      - name: Commit and push summary
+        if: steps.run-copilot.outputs.exists == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ steps.output-path.outputs.output_path }}"
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Add GitHub changelog summary for ${{ steps.output-path.outputs.post_date }}"
       #     git push origin HEAD:main
