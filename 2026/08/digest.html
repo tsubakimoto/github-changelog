@@ -256,9 +256,9 @@
 <header class="page-header">
   <h1>GitHub Changelog ダイジェスト &mdash; 2026年8月</h1>
   <div class="stats">
-    <span>総件数: 36 件</span>
-    <span>製品数: 7</span>
-    <span>更新のあった日数: 8 日</span>
+    <span>総件数: 59 件</span>
+    <span>製品数: 8</span>
+    <span>更新のあった日数: 16 日</span>
   </div>
 </header>
 <main>
@@ -284,12 +284,13 @@
   <section class="block">
     <h2 class="block-title">目次</h2>
     <ul class="toc">
-      <li><a href="#group-copilot">GitHub Copilot</a> <span class="count">(18)</span></li>
-      <li><a href="#group-security">Code security</a> <span class="count">(7)</span></li>
-      <li><a href="#group-enterprise">Enterprise 管理</a> <span class="count">(3)</span></li>
+      <li><a href="#group-copilot">GitHub Copilot</a> <span class="count">(26)</span></li>
+      <li><a href="#group-security">Code security</a> <span class="count">(12)</span></li>
+      <li><a href="#group-enterprise">Enterprise 管理</a> <span class="count">(6)</span></li>
+      <li><a href="#group-issues">Issues &amp; Projects</a> <span class="count">(6)</span></li>
+      <li><a href="#group-apps">Apps &amp; Marketplace</a> <span class="count">(3)</span></li>
+      <li><a href="#group-actions">GitHub Actions</a> <span class="count">(2)</span></li>
       <li><a href="#group-repos">Repositories &amp; Code</a> <span class="count">(2)</span></li>
-      <li><a href="#group-issues">Issues &amp; Projects</a> <span class="count">(2)</span></li>
-      <li><a href="#group-apps">Apps &amp; Marketplace</a> <span class="count">(2)</span></li>
       <li><a href="#group-other">その他</a> <span class="count">(2)</span></li>
     </ul>
   </section>
@@ -373,7 +374,7 @@
       <details class="product-details">
         <summary class="product-summary">
           <span class="product-name">1. GitHub Copilot</span>
-          <span class="count">18 件</span>
+          <span class="count">26 件</span>
         </summary>
         <div class="cards">
 
@@ -512,6 +513,67 @@
           <p class="summary">Copilot の各製品にまたがる週次更新で、新しいモデル、Agent Plugins 1.0、扱いやすいプラグイン管理、サイドチャットなどがまとめて紹介されています。Copilot CLI では `/tasks`、キューイング、`--plan` と `--mode autopilot` の併用、`/rewind`、`/app` のコンテキスト維持が追加されました。</p>
         </article>
 
+        <article class="card" data-title="enterprise managed settings in github copilot for jetbrains" data-summary="jetbrains 向け copilot でプラグイン、mcp、opentelemetry、権限モードを企業管理できる。" data-tags="Improvement|Security">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span><span class="tag tag-warn">Security</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-18-enterprise-managed-settings-in-github-copilot-for-jetbrains" target="_blank" rel="noopener">Enterprise managed settings in GitHub Copilot for JetBrains</a></h3>
+          <div class="card-date">8/18</div>
+          <p class="summary">JetBrains 向け Copilot で、プラグイン、MCP サーバー、OpenTelemetry、権限モードを管理者が一元制御できるようになりました。</p>
+          <p class="note">⚠️ allowlist と権限モードを組織の運用ポリシーに合わせて設定してください。</p>
+        </article>
+
+        <article class="card" data-title="the new github copilot experience in slack" data-summary="slack から copilot cli と github copilot app の agent 機能を public preview で利用できる。" data-tags="Public Preview|Improvement">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-21-the-new-github-copilot-experience-in-slack" target="_blank" rel="noopener">The new GitHub Copilot experience in Slack</a></h3>
+          <div class="card-date">8/21</div>
+          <p class="summary">Slack の DM、チャンネル、スレッドから @GitHub を呼び出し、質問、Issue 操作、調査、実装、PR 作成までつなげられます。</p>
+          <p class="note">⚠️ public preview。cloud agent policy を有効化し、作成PRは人の確認を通してからマージしてください。</p>
+        </article>
+
+        <article class="card" data-title="shared agentic work with github copilot in microsoft teams" data-summary="microsoft teams から共有可能な copilot cloud agent セッションを public preview で開始できる。" data-tags="Public Preview|Improvement">
+          <div class="card-tags"><span class="tag tag-preview">Public Preview</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-21-shared-agentic-work-with-github-copilot-in-microsoft-teams" target="_blank" rel="noopener">Shared agentic work with GitHub Copilot in Microsoft Teams</a></h3>
+          <div class="card-date">8/21</div>
+          <p class="summary">Teams で会話参加者が一緒に計画・調整できる共有 Copilot cloud agent セッションを開始し、権限のある人が実作業を進められます。</p>
+          <p class="note">⚠️ public preview。cloud agent と cloud sandboxes のポリシー、PRの追加承認を確認してください。</p>
+        </article>
+
+        <article class="card" data-title="copilot code review resolution reasons and expanded capabilities" data-summary="bot 作成prと非常に大きなprも copilot code review の対象となり、解決理由を記録できる。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-27-copilot-code-review-resolution-reasons-and-expanded-capabilities" target="_blank" rel="noopener">Copilot code review: Resolution reasons and expanded capabilities</a></h3>
+          <div class="card-date">8/27</div>
+          <p class="summary">bot 作成のPRや非常に大きなPRも Copilot code review で扱えるようになり、コメント解決時に Addressed / Won't fix / Incorrect を選べます。</p>
+        </article>
+
+        <article class="card" data-title="github copilot in visual studio august update" data-summary="visual studio で thinking effort、custom agents、利用状況、git agent による変更レビューが追加された。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-28-github-copilot-in-visual-studio-august-update-2" target="_blank" rel="noopener">GitHub Copilot in Visual Studio — August update</a></h3>
+          <div class="card-date">8/28</div>
+          <p class="summary">Visual Studio の Copilot で reasoning と使用モデルを制御し、組織の custom agents 検出、利用状況確認、Git agent による変更レビューが可能になりました。</p>
+        </article>
+
+        <article class="card" data-title="github copilot weekly releases august 24" data-summary="copilot のセッション継続、管理、plugins、mcp、skills、permission modes が各製品で強化された。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-28-github-copilot-weekly-releases-august-24" target="_blank" rel="noopener">GitHub Copilot weekly releases — August 24</a></h3>
+          <div class="card-date">8/28</div>
+          <p class="summary">Slack / Teams、Copilot app、CLI、JetBrains、VS Code、Visual Studio にまたがり、セッション継続、plugins、MCP、skills の管理が強化されました。</p>
+        </article>
+
+        <article class="card" data-title="upcoming changes to github copilot policies and billing" data-summary="2026-09-28と2026-10-01にcopilot体験、レビュー既定値、seat前払い課金が変更される。" data-tags="Announcement|Breaking Change">
+          <div class="card-tags"><span class="tag tag-neutral">Announcement</span><span class="tag tag-warn">Breaking Change</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-28-upcoming-changes-to-github-copilot-policies-and-billing" target="_blank" rel="noopener">Upcoming changes to GitHub Copilot policies and billing</a></h3>
+          <div class="card-date">8/28</div>
+          <p class="summary">2026-09-28 以降に unified experience へ移行し、Copilot code review の Default は Balanced に変更されます。2026-10-01 から seat の前払い課金も始まります。</p>
+          <p class="note">⚠️ 2026-09-28 までに opt-out / Lite の明示設定を確認し、2026-10-01 までに課金影響を確認してください。</p>
+        </article>
+
+        <article class="card" data-title="github copilot in vscode august 2026 releases" data-summary="vscode の agents、長い会話、レビュー、ブラウザ連携、音声入力が強化された。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-31-github-copilot-in-vscode-august-2026-releases" target="_blank" rel="noopener">GitHub Copilot in VS Code, August 2026 releases</a></h3>
+          <div class="card-date">8/31</div>
+          <p class="summary">VS Code の Agents ウィンドウ、prompt timeline、side conversation、session continuation、レビュー、ブラウザ連携、dictation が強化されました。</p>
+          <p class="note">⚠️ VS Code 1.132以降や experimental 機能の導入可否をチームで確認してください。</p>
+        </article>
+
         </div>
       </details>
     </section>
@@ -520,7 +582,7 @@
       <details class="product-details">
         <summary class="product-summary">
           <span class="product-name">2. Code security</span>
-          <span class="count">7 件</span>
+          <span class="count">12 件</span>
         </summary>
         <div class="cards">
 
@@ -577,6 +639,45 @@
           <p class="note">⚠️ ライセンス監査に依存しているワークフローでは、レジストリ由来の判定に切り替わった前提で運用ルールを見直してください。</p>
         </article>
 
+        <article class="card" data-title="codeql 2.26.3 improves github actions queries and javascript modeling" data-summary="codeql 2.26.3 で javascript/typescript/vue と github actions の解析精度が改善された。" data-tags="Security|Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-19-codeql-2-26-3-improves-github-actions-queries-and-javascript-modeling" target="_blank" rel="noopener">CodeQL 2.26.3 improves GitHub Actions queries and JavaScript modeling</a></h3>
+          <div class="card-date">8/19</div>
+          <p class="summary">JavaScript / TypeScript / Vue のソースモデリングと GitHub Actions クエリの精度が改善され、code scanning の検出精度が向上します。</p>
+          <p class="note">⚠️ 古い SelfHostedQuery や GitHub Actions モデルに依存するカスタムクエリは更新してください。</p>
+        </article>
+
+        <article class="card" data-title="track organization code quality trends" data-summary="organization の code quality dashboard に7、14、30日のtrendsが追加された。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-19-track-organization-code-quality-trends" target="_blank" rel="noopener">Track organization code quality trends</a></h3>
+          <div class="card-date">8/19</div>
+          <p class="summary">Organization の Code Quality dashboard に Trends タブが追加され、7 / 14 / 30 日の findings の増減や対象リポジトリを追跡できます。</p>
+        </article>
+
+        <article class="card" data-title="code scanning adds a mitigated alert dismissal reason" data-summary="code scanning alert を外部対策でリスク低減した場合に mitigated として閉じられる。" data-tags="Security|Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-20-code-scanning-adds-a-mitigated-alert-dismissal-reason" target="_blank" rel="noopener">Code scanning adds a mitigated alert dismissal reason</a></h3>
+          <div class="card-date">8/20</div>
+          <p class="summary">WAF やネットワークポリシーなど外部対策でリスクを下げた alert を、新しい dismissal reason `Mitigated` で記録できます。</p>
+          <p class="note">⚠️ 自動処理で dismissal reason の列挙を固定している場合は新値を追加してください。</p>
+        </article>
+
+        <article class="card" data-title="separate github actions path for github code quality" data-summary="github code quality が code scanning と別の workflow path と actor で実行されるようになった。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-20-separate-github-actions-path-for-github-code-quality" target="_blank" rel="noopener">Separate GitHub Actions path for GitHub Code Quality</a></h3>
+          <div class="card-date">8/20</div>
+          <p class="summary">Code Quality の Actions 実行が code scanning と別の workflow path / actor になり、利用状況や請求で区別しやすくなりました。</p>
+          <p class="note">⚠️ 集計に `dynamic/github-code-quality/codeql` と新しい actor を追加してください。</p>
+        </article>
+
+        <article class="card" data-title="track github code quality enablement changes in the audit log" data-summary="code quality の有効化、無効化、設定変更がaudit logに記録される。" data-tags="Security|Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-20-track-github-code-quality-enablement-changes-in-the-audit-log" target="_blank" rel="noopener">Track GitHub Code Quality enablement changes in the audit log</a></h3>
+          <div class="card-date">8/20</div>
+          <p class="summary">Code Quality の有効化・無効化・設定変更が audit log の3イベントで追跡できるようになりました。</p>
+          <p class="note">⚠️ `repo.code_quality_enabled` / `disabled` / `updated` を監視対象へ追加してください。</p>
+        </article>
+
         </div>
       </details>
     </section>
@@ -585,7 +686,7 @@
       <details class="product-details" open>
         <summary class="product-summary">
           <span class="product-name">3. Enterprise 管理</span>
-          <span class="count">3 件</span>
+          <span class="count">6 件</span>
         </summary>
         <div class="cards">
 
@@ -610,6 +711,30 @@
           <div class="card-date">8/11</div>
           <p class="summary">GHES 3.22 のリリース候補が公開されました。Copilot CLI を切断環境で使える機能、Enterprise Teams の GA、rulesets 強化、Issue 側バーでの release 状態表示などが含まれます。</p>
           <p class="note">⚠️ 評価環境で Copilot CLI 連携と rulesets の動作を確認してください。バイパスや alert dismissal の運用も日付ソート前提で見直せます。</p>
+        </article>
+
+        <article class="card" data-title="credential revocation and deauthorization by token type" data-summary="pat、ssh key、oauth app tokenなどをトークン種別ごとに失効・取り消しできる。" data-tags="Security|Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-18-credential-revocation-and-deauthorization-by-token-type" target="_blank" rel="noopener">Credential revocation and deauthorization by token type</a></h3>
+          <div class="card-date">8/18</div>
+          <p class="summary">PAT、SSH key、OAuth app token、GitHub App user access token などを種別ごとに失効・取り消しできるようになりました。</p>
+          <p class="note">⚠️ インシデント対応手順を、全資格情報一括ではなくトークン種別単位へ更新してください。</p>
+        </article>
+
+        <article class="card" data-title="global model policy generally available" data-summary="copilot の一般提供モデルに対する企業向け既定ポリシーが段階的に有効化される。" data-tags="GA|Improvement">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-26-global-model-policy-generally-available" target="_blank" rel="noopener">Global model policy generally available</a></h3>
+          <div class="card-date">8/26</div>
+          <p class="summary">Copilot の一般提供モデルに対する企業向け既定ポリシーが段階的に有効化され、未設定モデルは既定ポリシーに従います。</p>
+          <p class="note">⚠️ 2026-09-01 までの段階反映を見据え、未設定モデルの状態を確認してください。</p>
+        </article>
+
+        <article class="card" data-title="enterprise managed settings now support autoupdate for plugin marketplaces" data-summary="enterprise managed settings で許可済みplugin marketplaceのautoupdateを設定できる。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-27-enterprise-managed-settings-now-support-autoupdate-for-plugin-marketplaces" target="_blank" rel="noopener">Enterprise-managed settings now support autoUpdate for plugin marketplaces</a></h3>
+          <div class="card-date">8/27</div>
+          <p class="summary">Enterprise managed settings で marketplace ごとに `autoUpdate: true` を設定し、許可済みプラグインを自動更新できるようになりました。</p>
+          <p class="note">⚠️ `strictKnownMarketplaces` の allowlist と自動更新対象を最小限に設定してください。</p>
         </article>
 
         </div>
@@ -647,7 +772,7 @@
       <details class="product-details" open>
         <summary class="product-summary">
           <span class="product-name">5. Issues &amp; Projects</span>
-          <span class="count">2 件</span>
+          <span class="count">6 件</span>
         </summary>
         <div class="cards">
 
@@ -665,6 +790,34 @@
           <p class="summary">Issue 間に新しい “Relates to” 関係を追加できるようになりました。あわせて、issues と projects の multi-select fields が一般提供となり、表やボードでの操作性が向上しています。</p>
         </article>
 
+        <article class="card" data-title="pinning saved views to the repository issues sidebar" data-summary="repository issues sidebarにsaved viewsをピン留めできる。" data-tags="GA|Improvement">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-20-pin-projects-views-and-milestones-to-the-repository-sidebar" target="_blank" rel="noopener">Pinning saved views to the repository issues sidebar is generally available and more</a></h3>
+          <div class="card-date">8/20</div>
+          <p class="summary">Repository の Issues サイドバーに saved views をピン留めでき、よく使うビューへすぐアクセスできるようになりました。</p>
+        </article>
+
+        <article class="card" data-title="better tools for managing blocked users" data-summary="blocked usersを検索、ソート、ページ送り、理由で絞り込みできる。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-21-better-tools-for-managing-blocked-users" target="_blank" rel="noopener">Better tools for managing blocked users</a></h3>
+          <div class="card-date">8/21</div>
+          <p class="summary">個人アカウントと組織の blocked users 管理で、ユーザー検索、ソート、ページ送り、ブロック理由の絞り込みが可能になりました。</p>
+        </article>
+
+        <article class="card" data-title="better label management on issues is generally available" data-summary="issuesの最近使ったラベル候補と未使用ラベルのアーカイブがgaになった。" data-tags="GA|Improvement">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-27-label-archiving-is-generally-available" target="_blank" rel="noopener">Better label management on issues is generally available</a></h3>
+          <div class="card-date">8/27</div>
+          <p class="summary">Issue で最近使ったラベルの候補表示と、履歴を保持したまま未使用ラベルをアーカイブする機能が一般提供になりました。</p>
+        </article>
+
+        <article class="card" data-title="close all open contributions authored by a blocked user" data-summary="blocked userが作成したopenなissue、discussion、prをまとめて閉じられる。" data-tags="Improvement">
+          <div class="card-tags"><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-27-close-all-open-contributions-authored-by-a-blocked-user" target="_blank" rel="noopener">Close all open contributions authored by a blocked user</a></h3>
+          <div class="card-date">8/27</div>
+          <p class="summary">ユーザーをブロックする際、そのユーザーが作成した open な issue、discussion、pull request をまとめて閉じられるようになりました。</p>
+        </article>
+
         </div>
       </details>
     </section>
@@ -673,7 +826,7 @@
       <details class="product-details" open>
         <summary class="product-summary">
           <span class="product-name">6. Apps &amp; Marketplace</span>
-          <span class="count">2 件</span>
+          <span class="count">3 件</span>
         </summary>
         <div class="cards">
 
@@ -693,6 +846,39 @@
           <p class="note">⚠️ wildcard matching は、ユーザー生成コンテンツを配信するサイトでは悪用される可能性があるため、必要な場合のみ有効化してください。</p>
         </article>
 
+        <article class="card" data-title="github apps can now access enterprise billing data" data-summary="github appにenterprise billing権限を付与し、企業請求データへアクセスできる。" data-tags="Security|Improvement">
+          <div class="card-tags"><span class="tag tag-warn">Security</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-26-github-apps-can-now-access-enterprise-billing-data" target="_blank" rel="noopener">GitHub Apps can now access enterprise billing data</a></h3>
+          <div class="card-date">8/26</div>
+          <p class="summary">GitHub App に enterprise billing の read / read and write 権限を付与し、個人トークンに依存せず請求データを自動化できます。</p>
+          <p class="note">⚠️ 必要最小限の権限で設定し、GitHub Enterprise Cloud の対象環境で利用してください。</p>
+        </article>
+
+        </div>
+      </details>
+    </section>
+
+    <section class="product-section" id="group-actions">
+      <details class="product-details" open>
+        <summary class="product-summary">
+          <span class="product-name">7. GitHub Actions</span>
+          <span class="count">2 件</span>
+        </summary>
+        <div class="cards">
+        <article class="card" data-title="windows 11 arm64 vs2026 image generally available" data-summary="github-hosted runnerでwindows 11 arm64とvisual studio 2026 imageがgaになった。" data-tags="GA|Improvement">
+          <div class="card-tags"><span class="tag tag-positive">GA</span><span class="tag tag-neutral">Improvement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-20-windows-11-arm64-vs2026-image-generally-available" target="_blank" rel="noopener">Windows 11 arm64 VS2026 image generally available</a></h3>
+          <div class="card-date">8/20</div>
+          <p class="summary">GitHub-hosted runner で Windows 11 arm64 + Visual Studio 2026 イメージが一般提供になりました。</p>
+          <p class="note">⚠️ 既定の windows-11-arm は 2026-09-21 以降に段階移行するため、互換性を先行確認してください。</p>
+        </article>
+        <article class="card" data-title="actions retention will cover checks workflow runs and statuses" data-summary="2026-10-01からchecks、workflow runs、statusesもactions retention設定に従って削除される。" data-tags="Breaking Change|Announcement">
+          <div class="card-tags"><span class="tag tag-warn">Breaking Change</span><span class="tag tag-neutral">Announcement</span></div>
+          <h3 class="card-title"><a href="https://github.blog/changelog/2026-08-27-actions-retention-will-cover-checks-workflow-runs-and-statuses" target="_blank" rel="noopener">Actions retention will cover checks, workflow runs, and statuses</a></h3>
+          <div class="card-date">8/27</div>
+          <p class="summary">2026-10-01 から checks、workflow runs、statuses も Actions retention 設定に従い、アーティファクトやログと同じ保持期間で削除されます。</p>
+          <p class="note">⚠️ 必要な履歴は 2026-10-01 までにエクスポートまたはアーカイブしてください。</p>
+        </article>
         </div>
       </details>
     </section>
@@ -700,7 +886,7 @@
     <section class="product-section" id="group-other">
       <details class="product-details" open>
         <summary class="product-summary">
-          <span class="product-name">7. その他</span>
+          <span class="product-name">8. その他</span>
           <span class="count">2 件</span>
         </summary>
         <div class="cards">
