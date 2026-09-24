@@ -51,7 +51,7 @@ jobs:
       - name: Run Copilot CLI
         id: run-copilot
         run: |
-          export COPILOT_MODEL="gpt-5.4-mini"
+          export COPILOT_MODEL="gpt-5.6-luna"
           export COPILOT_PROVIDER_BASE_URL="${{ secrets.COPILOT_PROVIDER_BASE_URL }}${COPILOT_MODEL}"
           export COPILOT_PROVIDER_TYPE="azure"
           export COPILOT_PROVIDER_API_KEY="${{ secrets.COPILOT_PROVIDER_API_KEY }}"
